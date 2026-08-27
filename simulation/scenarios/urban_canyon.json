@@ -1,0 +1,39 @@
+{
+  "name": "urban_canyon",
+  "description": "Urban canyon vehicle navigation: 90-degree building cornering, severe satellite occlusion, multipath jumps, and periodic complete outages.",
+  "duration_sec": 60.0,
+  "dt": 0.01,
+  "trajectory_type": "urban_grid",
+  "speed_mps": 14.0,
+  "climb_rate_mps": 0.0,
+  "gnss": {
+    "enabled": true,
+    "rate_hz": 5,
+    "base_horizontal_std": 8.0,
+    "base_vertical_std": 15.0,
+    "multipath": true,
+    "outages": [
+      {
+        "start_time": 12.0,
+        "end_time": 24.0,
+        "type": "canyon_shadow"
+      },
+      {
+        "start_time": 35.0,
+        "end_time": 52.0,
+        "type": "tunnel_blackout"
+      }
+    ]
+  },
+  "imu": {
+    "accel_noise_std": 0.06,
+    "gyro_noise_std": 0.005,
+    "accel_bias": [0.05, -0.04, 0.06],
+    "gyro_bias": [0.004, -0.003, 0.003]
+  },
+  "vo": {
+    "enabled": true,
+    "rate_hz": 20,
+    "base_velocity_std": 0.15
+  }
+}

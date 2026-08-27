@@ -1,0 +1,17 @@
+# AGASTYA Core Dependencies
+numpy>=1.24.0
+scipy>=1.10.0
+torch>=2.0.0
+pydantic>=2.0.0
+fastapi>=0.110.0
+uvicorn>=0.28.0
+websockets>=12.0
+python-multipart>=0.0.9
+pandas>=2.0.0
+matplotlib>=3.7.0
+scikit-learn>=1.2.0
+tqdm>=4.65.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0

@@ -1,0 +1,78 @@
+{
+  "parameters": {
+    "track_width_m": {
+      "name": "track_width_m",
+      "value": 1.47,
+      "unit": "meters",
+      "status": "PROVISIONAL / CONFIGURATION REQUIRED",
+      "provenance": "Ford Fiesta Mk7 OEM rear track width specification",
+      "rationale": "Required for differential wheel yaw rate calculation during gyro dropout. Not explicitly in IO-VNBD CSV headers."
+    },
+    "zero_speed_threshold_ms": {
+      "name": "zero_speed_threshold_ms",
+      "value": 0.08,
+      "unit": "m/s",
+      "status": "PROVISIONAL",
+      "provenance": "Empirical stationary sensor noise floor threshold",
+      "rationale": "Velocity below ~0.28 km/h indicates stopped vehicle; activates Zero-Velocity Update (ZUPT) to prevent stationary drift."
+    },
+    "accel_weight_baseline_b": {
+      "name": "accel_weight_baseline_b",
+      "value": 0.15,
+      "unit": "dimensionless ratio",
+      "status": "PROVISIONAL",
+      "provenance": "Kinematic complementary filter tuning",
+      "rationale": "Weight on integrated longitudinal acceleration vs wheel speed in Baseline B during normal driving."
+    },
+    "slip_diff_threshold_ms": {
+      "name": "slip_diff_threshold_ms",
+      "value": 2.5,
+      "unit": "m/s",
+      "status": "PROVISIONAL",
+      "provenance": "Kinematic wheel slip threshold",
+      "rationale": "Discrepancy threshold between left/right wheel speeds to trigger tire slip mitigation mode."
+    },
+    "max_plausible_speed_ms": {
+      "name": "max_plausible_speed_ms",
+      "value": 70.0,
+      "unit": "m/s",
+      "status": "PROVISIONAL",
+      "provenance": "Physical passenger vehicle kinematic upper bound (~250 km/h)",
+      "rationale": "Used in causal quality gate to reject corrupted or out-of-range sensor spikes."
+    }
+  },
+  "baselines_registry": {
+    "BASELINE_A": {
+      "baseline_id": "BASELINE_A",
+      "name": "Differential Wheel Odometry + CAN Yaw Rate",
+      "sensor_inputs": ["wheel_speed_rl_ms", "wheel_speed_rr_ms", "yaw_rate_rads", "dt_sec"],
+      "equations": "v_fwd = (v_RL + v_RR) / 2; psi_k = psi_{k-1} + omega_z * dt; dE = v_fwd * sin(psi_mid) * dt; dN = v_fwd * cos(psi_mid) * dt",
+      "causal_status": "STRICTLY CAUSAL",
+      "purpose": "Primary classical ground-vehicle dead-reckoning benchmark"
+    },
+    "BASELINE_B": {
+      "baseline_id": "BASELINE_B",
+      "name": "Kinematic Wheel Odometry + CAN Yaw Rate + Longitudinal Acceleration Fusion",
+      "sensor_inputs": ["wheel_speed_rl_ms", "wheel_speed_rr_ms", "accel_x_ms2", "yaw_rate_rads", "dt_sec"],
+      "equations": "v_filt = (1-w) * v_wheel + w * (v_filt + a_x * dt); psi_k = psi_{k-1} + omega_z * dt; planar ENU integration",
+      "causal_status": "STRICTLY CAUSAL",
+      "purpose": "Slip-resilient kinematic dead-reckoning baseline with acceleration complementary fusion"
+    },
+    "BASELINE_C": {
+      "baseline_id": "BASELINE_C",
+      "name": "CAN Inertial-Only Planar Integration Baseline",
+      "sensor_inputs": ["accel_x_ms2", "yaw_rate_rads", "dt_sec"],
+      "equations": "v_fwd = v_{k-1} + a_x * dt; psi_k = psi_{k-1} + omega_z * dt; planar ENU integration",
+      "causal_status": "STRICTLY CAUSAL",
+      "purpose": "Diagnostic baseline demonstrating rapid unbounded quadratic drift without wheel odometry feedback"
+    },
+    "SMARTPHONE_SINS": {
+      "baseline_id": "SMARTPHONE_SINS",
+      "name": "Smartphone Cabin 3D SINS Mechanization",
+      "sensor_inputs": ["phone_acc_x", "phone_acc_y", "phone_acc_z", "phone_gyro_x", "phone_gyro_y", "phone_gyro_z"],
+      "equations": "3D Strapdown integration with gravity compensation",
+      "causal_status": "BLOCKED — SENSOR FRAME CALIBRATION REQUIRED",
+      "purpose": "Blocked until extrinsic mounting matrix T_phone^vehicle is calibrated in future objective"
+    }
+  }
+}

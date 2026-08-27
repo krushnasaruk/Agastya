@@ -1,0 +1,27 @@
+{
+  "name": "nominal_flight",
+  "description": "Nominal clear-sky aerial trajectory with full GNSS lock (12+ satellites, PDOP < 1.5) and low sensor noise.",
+  "duration_sec": 45.0,
+  "dt": 0.01,
+  "trajectory_type": "figure_8",
+  "speed_mps": 22.0,
+  "climb_rate_mps": 0.5,
+  "gnss": {
+    "enabled": true,
+    "rate_hz": 5,
+    "base_horizontal_std": 1.2,
+    "base_vertical_std": 2.2,
+    "outages": []
+  },
+  "imu": {
+    "accel_noise_std": 0.03,
+    "gyro_noise_std": 0.002,
+    "accel_bias": [0.015, -0.010, 0.020],
+    "gyro_bias": [0.0008, -0.0012, 0.0005]
+  },
+  "vo": {
+    "enabled": true,
+    "rate_hz": 20,
+    "base_velocity_std": 0.08
+  }
+}

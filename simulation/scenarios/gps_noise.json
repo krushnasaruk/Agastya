@@ -1,0 +1,39 @@
+{
+  "name": "gps_noise",
+  "description": "High GNSS noise and multipath conditions with fluctuating GDOP and sporadic fixes.",
+  "duration_sec": 45.0,
+  "dt": 0.01,
+  "trajectory_type": "helical_climb",
+  "speed_mps": 18.0,
+  "climb_rate_mps": 2.0,
+  "gnss": {
+    "enabled": true,
+    "rate_hz": 5,
+    "base_horizontal_std": 6.5,
+    "base_vertical_std": 12.0,
+    "multipath": true,
+    "outages": [
+      {
+        "start_time": 15.0,
+        "end_time": 22.0,
+        "type": "spoof_jump"
+      },
+      {
+        "start_time": 30.0,
+        "end_time": 36.0,
+        "type": "multipath_spike"
+      }
+    ]
+  },
+  "imu": {
+    "accel_noise_std": 0.05,
+    "gyro_noise_std": 0.004,
+    "accel_bias": [0.04, -0.03, 0.05],
+    "gyro_bias": [0.003, -0.002, 0.002]
+  },
+  "vo": {
+    "enabled": true,
+    "rate_hz": 20,
+    "base_velocity_std": 0.10
+  }
+}
