@@ -1,0 +1,91 @@
+{
+  "sequence_id": "sync_01",
+  "baselines": {
+    "BASELINE_A": {
+      "ate_rmse_m": 1.6715,
+      "final_position_error_m": 1.8603,
+      "max_position_error_m": 2.108,
+      "median_position_error_m": 1.6921,
+      "p90_position_error_m": 2.0164,
+      "p95_position_error_m": 2.0616,
+      "drift_rate_pct": 0.289,
+      "heading_rmse_deg": 0.046,
+      "final_heading_error_deg": 0.017,
+      "max_heading_error_deg": 0.181,
+      "velocity_rmse_ms": 0.03303,
+      "total_trajectory_distance_m": 643.2,
+      "evaluation_duration_sec": 59.9,
+      "num_samples": 600
+    },
+    "BASELINE_B": {
+      "ate_rmse_m": 1.4896,
+      "final_position_error_m": 1.7277,
+      "max_position_error_m": 1.9356,
+      "median_position_error_m": 1.5383,
+      "p90_position_error_m": 1.8467,
+      "p95_position_error_m": 1.8907,
+      "drift_rate_pct": 0.269,
+      "heading_rmse_deg": 0.046,
+      "final_heading_error_deg": 0.017,
+      "max_heading_error_deg": 0.181,
+      "velocity_rmse_ms": 0.10205,
+      "total_trajectory_distance_m": 643.2,
+      "evaluation_duration_sec": 59.9,
+      "num_samples": 600
+    },
+    "BASELINE_C": {
+      "ate_rmse_m": 246.5627,
+      "final_position_error_m": 304.6899,
+      "max_position_error_m": 311.0233,
+      "median_position_error_m": 259.47,
+      "p90_position_error_m": 303.5326,
+      "p95_position_error_m": 308.3572,
+      "drift_rate_pct": 47.371,
+      "heading_rmse_deg": 0.23,
+      "final_heading_error_deg": 0.446,
+      "max_heading_error_deg": 0.699,
+      "velocity_rmse_ms": 10.21845,
+      "total_trajectory_distance_m": 643.2,
+      "evaluation_duration_sec": 59.9,
+      "num_samples": 600
+    }
+  },
+  "gnss_outage_experiments": [
+    {
+      "outage_id": "outage_5s_t20s_turning",
+      "duration_sec": 5.0,
+      "start_time_sec": 20.000715574720697,
+      "end_time_sec": 25.101835723894112,
+      "accumulated_drift_m": 0.5905,
+      "max_drift_m": 0.6103,
+      "outage_ate_rmse_m": 0.35,
+      "drift_rate_pct": 1.275,
+      "distance_traveled_m": 46.32,
+      "maneuver_type": "turning"
+    },
+    {
+      "outage_id": "outage_10s_t20s_turning",
+      "duration_sec": 10.0,
+      "start_time_sec": 20.000715574720697,
+      "end_time_sec": 30.09887963791961,
+      "accumulated_drift_m": 0.8721,
+      "max_drift_m": 0.8772,
+      "outage_ate_rmse_m": 0.603,
+      "drift_rate_pct": 0.936,
+      "distance_traveled_m": 93.17,
+      "maneuver_type": "turning"
+    },
+    {
+      "outage_id": "outage_30s_t20s_turning",
+      "duration_sec": 30.0,
+      "start_time_sec": 20.000715574720697,
+      "end_time_sec": 50.00185235509507,
+      "accumulated_drift_m": 0.8254,
+      "max_drift_m": 0.8772,
+      "outage_ate_rmse_m": 0.6886,
+      "drift_rate_pct": 0.282,
+      "distance_traveled_m": 293.13,
+      "maneuver_type": "turning"
+    }
+  ]
+}

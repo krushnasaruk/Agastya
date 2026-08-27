@@ -1,0 +1,75 @@
+{
+  "sequence_id": "v_standalone_03",
+  "timestamp_stats": {
+    "num_samples": 450,
+    "duration_sec": 44.905,
+    "nominal_rate_hz": 10.0,
+    "observed_rate_hz": 10.02,
+    "mean_dt_sec": 0.10001,
+    "median_dt_sec": 0.10008,
+    "std_dt_sec": 0.00271,
+    "min_dt_sec": 0.09159,
+    "max_dt_sec": 0.10881,
+    "p25_dt_sec": 0.09798,
+    "p75_dt_sec": 0.10206,
+    "p95_dt_sec": 0.10415,
+    "p99_dt_sec": 0.10552,
+    "is_strictly_monotonic": true,
+    "num_duplicates": 0,
+    "num_retrograde": 0,
+    "num_large_gaps": 0,
+    "max_gap_sec": 0.10881,
+    "num_fallback_substitutions": 0,
+    "fallback_dt_sec": 0.1
+  },
+  "quality_summary": {
+    "total_samples": 450,
+    "valid_samples_count": 0,
+    "valid_fraction_pct": 0.0,
+    "missing_samples_count": 450,
+    "invalid_samples_count": 0,
+    "suspicious_samples_count": 0,
+    "sensor_valid_fraction_pct": 0.0,
+    "gps_valid_fraction_pct": 100.0,
+    "reference_valid_fraction_pct": 100.0,
+    "max_consecutive_valid_samples": 0,
+    "num_isolated_dropouts": 0
+  },
+  "consistency_report": {
+    "total_samples": 450,
+    "num_gps_jump_anomalies": 0,
+    "num_wheel_slip_anomalies": 0,
+    "num_yaw_coherence_anomalies": 0,
+    "max_detected_slip_ms": 0.0,
+    "max_position_jump_ms": 0.0,
+    "mean_wheel_gyro_yaw_correlation": 1.0,
+    "is_physically_consistent": true,
+    "threshold_definitions": {
+      "track_width_m": {
+        "value": 1.47,
+        "unit": "meters",
+        "status": "VERIFIED FROM VEHICLE SPEC",
+        "rationale": "Ford Fiesta Mk7 rear track width for differential odometry"
+      },
+      "max_valid_vehicle_speed_ms": {
+        "value": 70.0,
+        "unit": "m/s",
+        "status": "PROVISIONAL",
+        "rationale": "Upper bound (252 km/h) to flag impossible GPS teleportation jumps"
+      },
+      "slip_threshold_ms": {
+        "value": 2.5,
+        "unit": "m/s",
+        "status": "PROVISIONAL",
+        "rationale": "Threshold to distinguish transient tire slip from steady-state rolling"
+      },
+      "yaw_rate_mismatch_rads": {
+        "value": 0.5,
+        "unit": "rad/s",
+        "status": "PROVISIONAL",
+        "rationale": "Tolerance between differential wheel rate and CAN gyro rate"
+      }
+    },
+    "diagnostics": []
+  }
+}
