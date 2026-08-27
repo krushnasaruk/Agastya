@@ -1,0 +1,517 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AGASTYA AI Dead Reckoning API",
+    "description": "Asynchronous Neural-Inertial Navigation, ES-EKF Sensor Fusion, and Telemetry Engine.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/navigation/state": {
+      "get": {
+        "tags": [
+          "Navigation"
+        ],
+        "summary": "Get Navigation State",
+        "description": "Retrieve current fused navigation state and covariance.",
+        "operationId": "get_navigation_state_api_navigation_state_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Navigation State Api Navigation State Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/navigation/reset": {
+      "post": {
+        "tags": [
+          "Navigation"
+        ],
+        "summary": "Reset Navigation",
+        "description": "Reset filter, integrator, and error buffers.",
+        "operationId": "reset_navigation_api_navigation_reset_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/navigation/mode": {
+      "post": {
+        "tags": [
+          "Navigation"
+        ],
+        "summary": "Set Navigation Mode",
+        "description": "Set operating navigation mode.",
+        "operationId": "set_navigation_mode_api_navigation_mode_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModeChangeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/navigation/inject-fault": {
+      "post": {
+        "tags": [
+          "Navigation"
+        ],
+        "summary": "Inject Fault",
+        "description": "Inject runtime sensor fault.",
+        "operationId": "inject_fault_api_navigation_inject_fault_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FaultInjectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/telemetry/history": {
+      "get": {
+        "tags": [
+          "Telemetry"
+        ],
+        "summary": "Get Telemetry History",
+        "description": "Get recent sliding buffer of telemetry packets.",
+        "operationId": "get_telemetry_history_api_telemetry_history_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Response Get Telemetry History Api Telemetry History Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "description": "System health check and operational metrics.",
+        "operationId": "health_check_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulation/scenarios": {
+      "get": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "List Scenarios",
+        "description": "List all available trajectory scenarios.",
+        "operationId": "list_scenarios_api_simulation_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ScenarioInfoSchema"
+                  },
+                  "type": "array",
+                  "title": "Response List Scenarios Api Simulation Scenarios Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulation/scenario/{name}": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Select Scenario",
+        "description": "Load and execute scenario.",
+        "operationId": "select_scenario_api_simulation_scenario__name__post",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulation/start": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Start Simulation",
+        "description": "Resume / start simulation execution.",
+        "operationId": "start_simulation_api_simulation_start_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulation/pause": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Pause Simulation",
+        "description": "Pause simulation clock.",
+        "operationId": "pause_simulation_api_simulation_pause_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulation/reset": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Reset Simulation",
+        "description": "Reset simulation clock to t=0.",
+        "operationId": "reset_simulation_api_simulation_reset_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulation/speed": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Set Speed",
+        "description": "Set simulation playback speed multiplier.",
+        "operationId": "set_speed_api_simulation_speed_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationSpeedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FaultInjectionRequest": {
+        "properties": {
+          "fault_type": {
+            "type": "string",
+            "title": "Fault Type",
+            "description": "gps_jamming, accel_bias_jump, gyro_bias_jump, vo_dropout"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value",
+            "default": 1.0
+          },
+          "duration_sec": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Sec",
+            "default": 10.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "fault_type"
+        ],
+        "title": "FaultInjectionRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ModeChangeRequest": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "description": "Operating mode: ai_enhanced_ekf, classical_ekf, pure_dr, ai_only"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "ModeChangeRequest"
+      },
+      "ScenarioInfoSchema": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "duration_sec": {
+            "type": "number",
+            "title": "Duration Sec"
+          },
+          "trajectory_type": {
+            "type": "string",
+            "title": "Trajectory Type"
+          },
+          "speed_mps": {
+            "type": "number",
+            "title": "Speed Mps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "duration_sec",
+          "trajectory_type",
+          "speed_mps"
+        ],
+        "title": "ScenarioInfoSchema"
+      },
+      "SimulationSpeedRequest": {
+        "properties": {
+          "speed_multiplier": {
+            "type": "number",
+            "maximum": 20.0,
+            "minimum": 0.1,
+            "title": "Speed Multiplier",
+            "default": 1.0
+          }
+        },
+        "type": "object",
+        "title": "SimulationSpeedRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

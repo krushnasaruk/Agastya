@@ -1,0 +1,313 @@
+"""
+Script to generate the standardized Google Colab notebook for Objective 5.
+"""
+
+import os
+import json
+
+
+def create_colab_notebook():
+    notebook_dir = os.path.abspath("notebooks")
+    os.makedirs(notebook_dir, exist_ok=True)
+    nb_path = os.path.join(notebook_dir, "objective5_residual_training.ipynb")
+
+    cells = [
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "# Project AGASTYA (SIH26168)\n",
+                "## Objective 5: Causal Residual Learning Model Training & Validation\n",
+                "**Platform:** Google Colab / PyTorch  \n",
+                "**Purpose:** Train and validate the first causal neural residual estimator (`CausalResidualGRU`) for hybrid dead reckoning.\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 01_environment_setup\n",
+                "# ============================================================\n",
+                "import os\n",
+                "import sys\n",
+                "import json\n",
+                "import random\n",
+                "import datetime\n",
+                "import numpy as np\n",
+                "import pandas as pd\n",
+                "import matplotlib.pyplot as plt\n",
+                "import torch\n",
+                "import torch.nn as nn\n",
+                "from torch.utils.data import Dataset, DataLoader\n",
+                "\n",
+                "print('PyTorch Version:', torch.__version__)\n",
+                "print('CUDA Available:', torch.cuda.is_available())\n",
+                "if torch.cuda.is_available():\n",
+                "    print('GPU Model:', torch.cuda.get_device_name(0))\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 02_repository_setup & Google Drive Mounting\n",
+                "# ============================================================\n",
+                "try:\n",
+                "    from google.colab import drive\n",
+                "    drive.mount('/content/drive')\n",
+                "    PROJECT_ROOT = '/content/drive/MyDrive/AGASTYA'\n",
+                "except Exception:\n",
+                "    PROJECT_ROOT = os.path.abspath(os.getcwd())\n",
+                "\n",
+                "print('Configured PROJECT_ROOT:', PROJECT_ROOT)\n",
+                "if PROJECT_ROOT not in sys.path:\n",
+                "    sys.path.insert(0, PROJECT_ROOT)\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 03_dataset_discovery\n",
+                "# ============================================================\n",
+                "processed_dir = os.path.join(PROJECT_ROOT, 'data', 'processed', 'sequences')\n",
+                "train_seq = 'sync_01'\n",
+                "val_seq = 'v_standalone_03'\n",
+                "test_seq = 'sync_02'\n",
+                "\n",
+                "print('Available Sequences:')\n",
+                "for s in [train_seq, val_seq, test_seq]:\n",
+                "    p = os.path.join(processed_dir, s, 'navigation_inputs.parquet')\n",
+                "    print(f'  * {s}: exists={os.path.exists(p)}')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 04_feature_validation & Canonical Registry\n",
+                "# ============================================================\n",
+                "from src.ai_residual.feature_registry import CANONICAL_FEATURE_NAMES, validate_feature_matrix_columns\n",
+                "\n",
+                "print(f'Canonical Causal Features ({len(CANONICAL_FEATURE_NAMES)} total):')\n",
+                "for i, name in enumerate(CANONICAL_FEATURE_NAMES):\n",
+                "    print(f'  [{i:02d}] {name}')\n",
+                "\n",
+                "validate_feature_matrix_columns(CANONICAL_FEATURE_NAMES)\n",
+                "print('Feature schema validation: PASSED')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 05_target_generation & 06_train_val_test_split\n",
+                "# ============================================================\n",
+                "from scripts.train_residual_model import prepare_sequence_data\n",
+                "\n",
+                "print('Extracting causal features and residual targets...')\n",
+                "proc_base = os.path.join(PROJECT_ROOT, 'data', 'processed')\n",
+                "train_data = prepare_sequence_data(train_seq, proc_base)\n",
+                "val_data = prepare_sequence_data(val_seq, proc_base)\n",
+                "test_data = prepare_sequence_data(test_seq, proc_base)\n",
+                "\n",
+                "print('Train samples:', len(train_data['causal_feats_df']))\n",
+                "print('Val samples:  ', len(val_data['causal_feats_df']))\n",
+                "print('Test samples: ', len(test_data['causal_feats_df']), '(HELD-OUT UNSEEN)')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 07_training_scalers (Fitted STRICTLY on sync_01)\n",
+                "# ============================================================\n",
+                "from src.ai_residual.scaler import TrainOnlyScaler, TargetScaler\n",
+                "\n",
+                "feat_scaler = TrainOnlyScaler().fit(train_data['causal_feats_df'], sequence_id=train_seq)\n",
+                "target_scaler = TargetScaler().fit(train_data['targets_matrix'], sequence_id=train_seq)\n",
+                "\n",
+                "artifacts_dir = os.path.join(PROJECT_ROOT, 'artifacts', 'objective5')\n",
+                "os.makedirs(artifacts_dir, exist_ok=True)\n",
+                "feat_scaler.save_json(os.path.join(artifacts_dir, 'feature_scaler.json'))\n",
+                "target_scaler.save_json(os.path.join(artifacts_dir, 'target_scaler.json'))\n",
+                "print('Train-only scalers saved to artifacts/objective5/')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 08_causal_window_generation (W = 10 epochs ~ 1.0s)\n",
+                "# ============================================================\n",
+                "from src.ai_residual.dataset import CausalWindowDataset\n",
+                "\n",
+                "w_size = 10\n",
+                "train_ds = CausalWindowDataset(feat_scaler.transform(train_data['causal_feats_df']), target_scaler.transform(train_data['targets_matrix']), window_size=w_size)\n",
+                "val_ds = CausalWindowDataset(feat_scaler.transform(val_data['causal_feats_df']), target_scaler.transform(val_data['targets_matrix']), window_size=w_size)\n",
+                "test_ds = CausalWindowDataset(feat_scaler.transform(test_data['causal_feats_df']), target_scaler.transform(test_data['targets_matrix']), window_size=w_size)\n",
+                "\n",
+                "train_loader = DataLoader(train_ds, batch_size=64, shuffle=True)\n",
+                "val_loader = DataLoader(val_ds, batch_size=64, shuffle=False)\n",
+                "test_loader = DataLoader(test_ds, batch_size=64, shuffle=False)\n",
+                "\n",
+                "print(f'Causal Windows: Train={len(train_ds)}, Val={len(val_ds)}, Test={len(test_ds)}')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 09_model_definition (CausalResidualGRU)\n",
+                "# ============================================================\n",
+                "from src.ai_residual.model import CausalResidualGRU\n",
+                "\n",
+                "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')\n",
+                "model = CausalResidualGRU(input_dim=16, hidden_dim=64, mlp_dim=32, output_dim=2).to(device)\n",
+                "print(model)\n",
+                "print('Total trainable parameters:', sum(p.numel() for p in model.parameters()))\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 10_training & 11_validation (Early Stopping on Val Loss)\n",
+                "# ============================================================\n",
+                "from src.ai_residual.trainer import ResidualModelTrainer, set_seed\n",
+                "\n",
+                "set_seed(42)\n",
+                "trainer = ResidualModelTrainer(model=model, learning_rate=1e-3, device=device)\n",
+                "train_result = trainer.fit(train_loader, val_loader, max_epochs=100, patience=15, checkpoint_dir=artifacts_dir)\n",
+                "print(f'Best Epoch: {train_result[\"best_epoch\"]} | Best Val Loss: {train_result[\"best_val_loss\"]:.6f}')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 12_checkpoint_selection & 13_held_out_test\n",
+                "# ============================================================\n",
+                "from src.ai_residual.evaluator import ResidualEvaluator\n",
+                "\n",
+                "res_metrics, y_true_p, y_pred_p, t_stamps = ResidualEvaluator.evaluate_dataset(\n",
+                "    model, test_loader, target_scaler, device=device\n",
+                ")\n",
+                "for k, v in res_metrics.items():\n",
+                "    print(f'{k}: MAE={v.mae:.5f} | RMSE={v.rmse:.5f} | Bias={v.bias:+.5f} | R2={v.r2_score:.4f} | r={v.pearson_correlation:+.4f}')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 14_navigation_rollout & 15_baseline_comparison\n",
+                "# ============================================================\n",
+                "from src.ai_residual.rollout import AIRolloutEngine\n",
+                "from navigation_engine.evaluation import DeadReckoningEvaluator\n",
+                "\n",
+                "rollout_engine = AIRolloutEngine(model=model, feature_scaler=feat_scaler, target_scaler=target_scaler, device=device)\n",
+                "ai_traj = rollout_engine.run_rollout(\n",
+                "    test_data['nav_df'], test_data['causal_feats_df'],\n",
+                "    initial_p_east_m=float(test_data['ref_df']['pos_east_m'].iloc[0]),\n",
+                "    initial_p_north_m=float(test_data['ref_df']['pos_north_m'].iloc[0]),\n",
+                "    initial_heading_rad=float(test_data['ref_df']['heading_rad'].iloc[0])\n",
+                ")\n",
+                "\n",
+                "ref_e = test_data['ref_df']['pos_east_m'].to_numpy()\n",
+                "ref_n = test_data['ref_df']['pos_north_m'].to_numpy()\n",
+                "ref_h = test_data['ref_df'].get('heading_rad', None)\n",
+                "ref_v = test_data['ref_df'].get('ground_speed_ms', None)\n",
+                "\n",
+                "c_m, _, _ = DeadReckoningEvaluator.evaluate(test_data['classical_traj'], ref_e, ref_n, ref_h, ref_v)\n",
+                "ai_m, _, _ = DeadReckoningEvaluator.evaluate(ai_traj, ref_e, ref_n, ref_h, ref_v)\n",
+                "\n",
+                "print(f'Classical Baseline A ATE RMSE: {c_m.ate_rmse_m:.4f} m | Final Error: {c_m.final_position_error_m:.4f} m')\n",
+                "print(f'AI-Corrected Baseline ATE RMSE: {ai_m.ate_rmse_m:.4f} m | Final Error: {ai_m.final_position_error_m:.4f} m')\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "# ============================================================\n",
+                "# 16_diagnostics & 17_artifact_export & 18_reproducibility_check\n",
+                "# ============================================================\n",
+                "from src.ai_residual.diagnostics import Objective5Visualizer\n",
+                "from src.ai_residual.outage_eval import OutageComparator\n",
+                "from src.ai_residual.ablations import AblationRunner\n",
+                "\n",
+                "outage_recs = OutageComparator.evaluate_outages(test_data['classical_traj'], ai_traj, ref_e, ref_n)\n",
+                "abl_recs = AblationRunner.run_ablations(model, feat_scaler, target_scaler, test_data['nav_df'], test_data['causal_feats_df'], test_data['ref_df'], device=device)\n",
+                "\n",
+                "fig_dir = os.path.join(artifacts_dir, 'figures')\n",
+                "figs = Objective5Visualizer.generate_all_plots(\n",
+                "    train_result, y_true_p, y_pred_p, t_stamps,\n",
+                "    test_data['classical_traj'], ai_traj,\n",
+                "    ref_e, ref_n,\n",
+                "    ref_v.to_numpy() if ref_v is not None else None,\n",
+                "    ref_h.to_numpy() if ref_h is not None else None,\n",
+                "    outage_recs, abl_recs,\n",
+                "    output_dir=fig_dir\n",
+                ")\n",
+                "\n",
+                "print(f'Successfully rendered all 12 diagnostic figures to {fig_dir}')\n",
+                "print('\\n' + '=' * 60)\n",
+                "print('OBJECTIVE 5 TRAINING COMPLETE')\n",
+                "print('=' * 60)\n"
+            ]
+        }
+    ]
+
+    nb_dict = {
+        "cells": cells,
+        "metadata": {
+            "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
+            "language_info": {"name": "python", "version": "3.10.12"}
+        },
+        "nbformat": 4,
+        "nbformat_minor": 4
+    }
+
+    with open(nb_path, "w") as f:
+        json.dump(nb_dict, f, indent=2)
+    print("Successfully generated Colab notebook:", nb_path)
+
+
+if __name__ == "__main__":
+    create_colab_notebook()

@@ -1,0 +1,14 @@
+{
+  "objective": "Objective 7",
+  "deployment_profile": "CPU_FIRST_REALTIME",
+  "nominal_sensor_rate_hz": 10.0,
+  "nominal_period_ms": 100.0,
+  "hard_realtime_deadline_ms": 100.0,
+  "preferred_target_ms": 50.0,
+  "watchdog_execution_budget_ms": 25.0,
+  "enable_velocity_correction": true,
+  "enable_yaw_correction": false,
+  "ood_threshold": 10.9352,
+  "window_size_epochs": 10,
+  "model_architecture": "CausalResidualGRU"
+}

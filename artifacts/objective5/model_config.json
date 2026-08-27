@@ -1,0 +1,14 @@
+{
+  "model_type": "CausalResidualGRU",
+  "input_dim": 16,
+  "hidden_dim": 64,
+  "mlp_dim": 32,
+  "output_dim": 2,
+  "num_gru_layers": 1,
+  "total_parameters": 28194,
+  "window_size": 10,
+  "training_sequence": "sync_01",
+  "validation_sequence": "v_standalone_03",
+  "test_sequence": "sync_02",
+  "seed": 42
+}

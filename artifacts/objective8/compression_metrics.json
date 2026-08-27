@@ -1,0 +1,22 @@
+{
+  "parameter_counts": {
+    "fp32_total_parameters": 28194,
+    "fp32_trainable_parameters": 28194,
+    "target_layer_breakdown": {
+      "input_proj": 1088,
+      "gru": 24960,
+      "fc1": 2080,
+      "fc2": 66
+    }
+  },
+  "serialized_size_bytes": {
+    "fp32_bytes": 116357,
+    "int8_bytes": 35827,
+    "fp32_kb": 113.6298828125,
+    "int8_kb": 34.9873046875
+  },
+  "compression_efficiency": {
+    "compression_ratio": 3.2477461132665306,
+    "size_reduction_pct": 69.20941584949767
+  }
+}

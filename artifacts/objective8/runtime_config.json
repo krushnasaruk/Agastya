@@ -1,0 +1,13 @@
+{
+  "project": "AGASTYA (SIH26168)",
+  "objective": "Objective 8",
+  "deployment_platform": "PyTorch CPU Edge / Google Colab",
+  "nominal_sensor_rate_hz": 10.0,
+  "nominal_period_ms": 100.0,
+  "hard_realtime_deadline_ms": 100.0,
+  "preferred_target_latency_ms": 50.0,
+  "watchdog_budget_ms": 25.0,
+  "memory_limit_mb": 25.0,
+  "model_precision": "INT8_DYNAMIC",
+  "fallback_authority": "CLASSICAL_PHYSICS_BASELINE_A"
+}

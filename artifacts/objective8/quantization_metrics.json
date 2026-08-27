@@ -1,0 +1,20 @@
+{
+  "num_evaluated_windows": 200,
+  "velocity_residual": {
+    "mae_m_s": 0.008377446793019772,
+    "max_abs_m_s": 0.027981162071228027,
+    "rmse_m_s": 0.010439740493893623,
+    "exceed_tolerance_pct": 0.0
+  },
+  "yaw_residual": {
+    "mae_rad_s": 0.041696928441524506,
+    "max_abs_rad_s": 0.1606454849243164,
+    "rmse_rad_s": 0.05246054381132126,
+    "exceed_tolerance_pct": 31.5
+  },
+  "overall": {
+    "mae": 0.025037188082933426,
+    "max_abs": 0.1606454849243164,
+    "rmse": 0.03782258927822113
+  }
+}

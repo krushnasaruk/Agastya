@@ -1,0 +1,15 @@
+{
+  "target_names": [
+    "delta_velocity_ms",
+    "delta_yaw_rate_rads"
+  ],
+  "means": [
+    -0.002994425357673178,
+    0.00011520124920249068
+  ],
+  "stds": [
+    0.03289361629852515,
+    0.007369833425799859
+  ],
+  "fitted_sequence_id": "sync_01"
+}

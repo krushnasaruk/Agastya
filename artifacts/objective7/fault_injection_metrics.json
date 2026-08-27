@@ -1,0 +1,130 @@
+[
+  {
+    "fault_name": "missing_wheel_fl",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "missing_imu_accel",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "nan_timestamp",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "zero_dt",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "negative_dt",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "large_dt",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "nan_wheel_speed",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "nan_yaw_rate",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "infinite_accel",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "stale_timestamp",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "temporary_dropout",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "complete_degradation",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "ai_inference_timeout",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "ai_model_exception",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "corrupted_feature_window",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  },
+  {
+    "fault_name": "confidence_unavailable",
+    "engine_crashed": false,
+    "navigation_state_valid": true,
+    "fallback_triggered": true,
+    "fallback_reason": "WINDOW_NOT_READY",
+    "status": "PASS (Handled Gracefully)"
+  }
+]

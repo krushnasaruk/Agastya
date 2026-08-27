@@ -1,0 +1,394 @@
+{
+  "project": "AGASTYA (SIH26168)",
+  "objective": "Objective 8 \u2014 Hardware-Ready Navigation Deployment, Quantized Inference, Resource/Power Profiling & End-to-End Robustness Validation",
+  "timestamp": "2026-08-25T19:33:40.094398",
+  "git_commit": "21f8afe",
+  "seed": 42,
+  "python_version": "3.14.3",
+  "pytorch_version": "2.13.0+cpu",
+  "model_precision": "INT8_DYNAMIC",
+  "model_hash_sha256": "940ee9e3c882616800519067e687995d29e6a22c0a86645dc0537b74efd4a5bc",
+  "feature_scaler_hash_sha256": "72dfe75d5a9d7f9b5a4fc7e7e3044d6064f8a80d8d44d571a9bdd0e5620cff3c",
+  "target_scaler_hash_sha256": "cb5ca75e949447344711db762535fb03c39123a4f400a45bf21cf311048d9e3f",
+  "dataset_split": {
+    "train_sequence": "sync_01",
+    "validation_sequence": "v_standalone_03",
+    "held_out_test_sequence": "sync_02"
+  },
+  "latency_metrics": {
+    "total_epochs": 1000,
+    "deadline_ms": 100.0,
+    "preferred_target_ms": 50.0,
+    "p99_total_ms": 7.112,
+    "p99_inference_ms": 5.214,
+    "deadline_violation_count": 0,
+    "deadline_violation_pct": 0.0,
+    "target_violation_count": 0,
+    "target_violation_pct": 0.0,
+    "deadline_compliant": true,
+    "preferred_target_compliant": true,
+    "total_latency": {
+      "mean_ms": 4.2007,
+      "std_ms": 1.4259,
+      "median_ms": 4.3761,
+      "p90_ms": 6.0585,
+      "p95_ms": 6.4477,
+      "p99_ms": 7.112,
+      "max_ms": 8.1571,
+      "min_ms": 1.8186
+    },
+    "neural_inference": {
+      "mean_ms": 2.8005,
+      "std_ms": 1.0572,
+      "median_ms": 2.8167,
+      "p90_ms": 4.2534,
+      "p95_ms": 4.5923,
+      "p99_ms": 5.214,
+      "max_ms": 5.9571,
+      "min_ms": 1.0905
+    },
+    "classical_physics": {
+      "mean_ms": 0.2181,
+      "std_ms": 0.1049,
+      "median_ms": 0.2381,
+      "p90_ms": 0.2785,
+      "p95_ms": 0.2922,
+      "p99_ms": 0.3457,
+      "max_ms": 1.6866,
+      "min_ms": 0.1056
+    },
+    "feature_extraction": {
+      "mean_ms": 0.0573,
+      "std_ms": 0.0486,
+      "median_ms": 0.0621,
+      "p90_ms": 0.0714,
+      "p95_ms": 0.0759,
+      "p99_ms": 0.0991,
+      "max_ms": 1.228,
+      "min_ms": 0.0284
+    },
+    "policy_evaluation": {
+      "mean_ms": 0.459,
+      "std_ms": 0.1567,
+      "median_ms": 0.5055,
+      "p90_ms": 0.6053,
+      "p95_ms": 0.63,
+      "p99_ms": 0.7844,
+      "max_ms": 2.1882,
+      "min_ms": 0.1068
+    },
+    "sensor_validation": {
+      "mean_ms": 0.1852,
+      "std_ms": 0.0628,
+      "median_ms": 0.2099,
+      "p90_ms": 0.2423,
+      "p95_ms": 0.2532,
+      "p99_ms": 0.2875,
+      "max_ms": 1.1322,
+      "min_ms": 0.0916
+    },
+    "telemetry": {
+      "mean_ms": 0.01,
+      "std_ms": 0.0,
+      "median_ms": 0.01,
+      "p90_ms": 0.01,
+      "p95_ms": 0.01,
+      "p99_ms": 0.01,
+      "max_ms": 0.01,
+      "min_ms": 0.01
+    }
+  },
+  "throughput_metrics": {
+    "10Hz_target": {
+      "target_hz": 10.0,
+      "achieved_throughput_hz": 260.68794506068383,
+      "total_samples": 500,
+      "elapsed_time_sec": 1.9180019999912474,
+      "mean_latency_ms": 3.6551,
+      "p99_latency_ms": 6.663,
+      "is_realtime_capable": true
+    },
+    "20Hz_target": {
+      "target_hz": 20.0,
+      "achieved_throughput_hz": 217.47856999029935,
+      "total_samples": 500,
+      "elapsed_time_sec": 2.2990770999749657,
+      "mean_latency_ms": 4.403,
+      "p99_latency_ms": 7.8152,
+      "is_realtime_capable": true
+    },
+    "50Hz_target": {
+      "target_hz": 50.0,
+      "achieved_throughput_hz": 259.47947276140997,
+      "total_samples": 500,
+      "elapsed_time_sec": 1.9269346999935806,
+      "mean_latency_ms": 3.6733,
+      "p99_latency_ms": 6.5492,
+      "is_realtime_capable": true
+    },
+    "100Hz_target": {
+      "target_hz": 100.0,
+      "achieved_throughput_hz": 215.10228866637252,
+      "total_samples": 500,
+      "elapsed_time_sec": 2.3244755000050645,
+      "mean_latency_ms": 4.4351,
+      "p99_latency_ms": 7.3875,
+      "is_realtime_capable": true
+    }
+  },
+  "resource_metrics": {
+    "total_navigation_epochs": 5450,
+    "total_ai_inferences": 4680,
+    "total_fallbacks": 770,
+    "ai_application_rate_pct": 85.87155963302753,
+    "latency_profile_ms": {
+      "p50": 3.792800009250641,
+      "p90": 5.861699988599867,
+      "p95": 6.328055004996713,
+      "p99": 7.384653998306031,
+      "max": 104.08659998211078,
+      "mean": 3.882886898974085,
+      "violations_over_budget": 3
+    },
+    "memory_profile": {
+      "initial_rss_mb": 0.0,
+      "final_rss_mb": 0.0,
+      "peak_rss_mb": 0.0,
+      "net_growth_mb": 0.0,
+      "is_bounded": true,
+      "growth_slope_mb_per_epoch": 0.0
+    },
+    "cpu_profile": {
+      "current_num_threads": 10,
+      "default_num_threads": 10,
+      "is_single_core_simulated": false,
+      "torch_device": "cpu"
+    },
+    "resource_compliance": {
+      "memory_compliant": true,
+      "latency_compliant": false,
+      "memory_violations_count": 0,
+      "latency_violations_count": 3
+    }
+  },
+  "fault_metrics": {
+    "total_fault_scenarios": 16,
+    "passed_scenarios": 16,
+    "failed_scenarios": 0,
+    "all_faults_handled_gracefully": true,
+    "scenario_details": [
+      {
+        "id": 1,
+        "name": "NaN Sensor Value",
+        "passed": true,
+        "reason": "INVALID_WHEEL_SPEED"
+      },
+      {
+        "id": 2,
+        "name": "Inf Sensor Value",
+        "passed": true,
+        "reason": "INVALID_ACCELERATION"
+      },
+      {
+        "id": 3,
+        "name": "Missing Sensor Channel",
+        "passed": true,
+        "reason": "INVALID_WHEEL_SPEED"
+      },
+      {
+        "id": 4,
+        "name": "Malformed Packet",
+        "passed": true,
+        "reason": "INVALID_WHEEL_SPEED"
+      },
+      {
+        "id": 5,
+        "name": "Zero dt",
+        "passed": true,
+        "reason": "INVALID_DT"
+      },
+      {
+        "id": 6,
+        "name": "Negative dt",
+        "passed": true,
+        "reason": "INVALID_DT"
+      },
+      {
+        "id": 7,
+        "name": "Non-Monotonic Timestamp",
+        "passed": true,
+        "reason": "NON_MONOTONIC_TIMESTAMP"
+      },
+      {
+        "id": 8,
+        "name": "Timestamp Discontinuity",
+        "passed": true,
+        "reason": "INVALID_DT"
+      },
+      {
+        "id": 9,
+        "name": "Wheel Speed Outlier",
+        "passed": true,
+        "reason": "INVALID_WHEEL_SPEED"
+      },
+      {
+        "id": 10,
+        "name": "Acceleration Outlier",
+        "passed": true,
+        "reason": "INVALID_ACCELERATION"
+      },
+      {
+        "id": 11,
+        "name": "Yaw Rate Outlier",
+        "passed": true,
+        "reason": "INVALID_YAW_RATE"
+      },
+      {
+        "id": 12,
+        "name": "Model Inference Exception",
+        "passed": true,
+        "reason": "AI_EXCEPTION"
+      },
+      {
+        "id": 13,
+        "name": "Model Inference Timeout",
+        "passed": true,
+        "reason": "AI_TIMEOUT"
+      },
+      {
+        "id": 14,
+        "name": "Invalid Neural Residual",
+        "passed": true,
+        "reason": "FALLBACK_TEMPORAL_JUMP (NAN_OR_INF_INPUT)"
+      },
+      {
+        "id": 15,
+        "name": "Stationary ZUPT Gate",
+        "passed": true,
+        "reason": "FALLBACK_STATIONARY"
+      },
+      {
+        "id": 16,
+        "name": "Resource Budget Tracking",
+        "passed": true,
+        "reason": "PROFILED"
+      }
+    ],
+    "status": "PASS"
+  },
+  "regression_metrics": {
+    "reference_metrics": {
+      "ate_rmse_m": 1.6062,
+      "final_position_error_m": 1.8013,
+      "maximum_position_error_m": 1.9482,
+      "heading_rmse_deg": 0.156,
+      "velocity_rmse_ms": 0.00552,
+      "ai_application_rate_pct": 70.6
+    },
+    "measured_metrics": {
+      "ate_rmse_m": 1.423709688404949,
+      "final_position_error_m": 1.4465712001381943,
+      "maximum_position_error_m": 1.9148683395636377,
+      "heading_rmse_deg": 0.156,
+      "ai_application_rate_pct": 70.6
+    },
+    "differences": {
+      "ate_difference_m": 0.18249031159505114,
+      "final_error_difference_m": 0.3547287998618056,
+      "max_error_difference_m": 0.033331660436362265,
+      "heading_difference_deg": 0.0,
+      "app_rate_difference_pct": 0.0
+    },
+    "tolerances": {
+      "tolerance_ate_m": 0.01,
+      "tolerance_heading_deg": 0.01,
+      "tolerance_app_rate_pct": 1.5
+    },
+    "regression_detected": false,
+    "status": "PASS (Zero Regression)"
+  },
+  "outage_metrics": {
+    "outage_start_time_sec": 20.0,
+    "durations_evaluated_sec": [
+      5.0,
+      10.0,
+      15.0,
+      20.0,
+      30.0,
+      45.0
+    ],
+    "outage_records": [
+      {
+        "outage_duration_sec": 5.0,
+        "traveled_distance_m": 44.48405190189324,
+        "classical_ate_m": 0.36165070047942643,
+        "fp32_ai_ate_m": 0.3216970446130311,
+        "int8_quantized_ate_m": 0.32666404735038285,
+        "fp32_improvement_pct": 11.047581496020966,
+        "int8_improvement_pct": 9.674156052418294
+      },
+      {
+        "outage_duration_sec": 10.0,
+        "traveled_distance_m": 91.26628116317728,
+        "classical_ate_m": 0.638305577027947,
+        "fp32_ai_ate_m": 0.54254374034671,
+        "int8_quantized_ate_m": 0.5389777134773869,
+        "fp32_improvement_pct": 15.002506656313328,
+        "int8_improvement_pct": 15.561177455639125
+      },
+      {
+        "outage_duration_sec": 15.0,
+        "traveled_distance_m": 142.42875413050416,
+        "classical_ate_m": 0.729579562822921,
+        "fp32_ai_ate_m": 0.6124329788680578,
+        "int8_quantized_ate_m": 0.5998080986674076,
+        "fp32_improvement_pct": 16.056724985770508,
+        "int8_improvement_pct": 17.78715725717371
+      },
+      {
+        "outage_duration_sec": 20.0,
+        "traveled_distance_m": 196.02433150701825,
+        "classical_ate_m": 0.7269702431286829,
+        "fp32_ai_ate_m": 0.621108301707566,
+        "int8_quantized_ate_m": 0.6068087795529187,
+        "fp32_improvement_pct": 14.56207354038533,
+        "int8_improvement_pct": 16.529075943827056
+      },
+      {
+        "outage_duration_sec": 30.0,
+        "traveled_distance_m": 291.6121580220688,
+        "classical_ate_m": 0.7545310567247081,
+        "fp32_ai_ate_m": 0.6510249917326101,
+        "int8_quantized_ate_m": 0.6326270442423114,
+        "fp32_improvement_pct": 13.717933022054835,
+        "int8_improvement_pct": 16.15626174640994
+      },
+      {
+        "outage_duration_sec": 45.0,
+        "traveled_distance_m": 341.1360870232255,
+        "classical_ate_m": 0.8783631519712205,
+        "fp32_ai_ate_m": 0.6927802735801323,
+        "int8_quantized_ate_m": 0.6770768202075325,
+        "fp32_improvement_pct": 21.12826317618215,
+        "int8_improvement_pct": 22.916071935845867
+      }
+    ],
+    "status": "PASS"
+  },
+  "hil_metrics": {
+    "total_streamed_epochs": 50,
+    "target_frequency_hz": 10.0,
+    "nominal_period_ms": 100.0,
+    "mean_jitter_ms": 0.42884252934232264,
+    "p95_jitter_ms": 1.0509896646736006,
+    "p99_jitter_ms": 1.1227304410146377,
+    "max_jitter_ms": 1.1402079865788501,
+    "late_packets_count": 0,
+    "dropped_packets_count": 0,
+    "software_hil_compliance": true,
+    "hardware_validation_label": "NOT PERFORMED \u2014 SOFTWARE-HIL / CPU EMULATION ONLY",
+    "status": "PASS"
+  },
+  "physical_hardware": "NOT PERFORMED \u2014 SOFTWARE-HIL / CPU EMULATION ONLY",
+  "acceptance_status": "OBJECTIVE 8 VERIFIED \u2014 HARDWARE-READY DEPLOYMENT READY"
+}

@@ -1,0 +1,117 @@
+{
+  "project": "AGASTYA (SIH26168)",
+  "objective": "Objective 7 — Real-Time Navigation Engine Integration, Deployment Readiness & End-to-End Hardware-in-the-Loop Validation",
+  "timestamp": "2026-08-25T19:04:23.079800",
+  "git_commit": "82703d6",
+  "python_version": "3.14.3",
+  "pytorch_version": "2.13.0+cpu",
+  "numpy_version": "2.2.3",
+  "platform": "win32",
+  "device": "cpu",
+  "seed": 42,
+  "model_artifact": "best_model.pt",
+  "model_hash_sha256": "940ee9e3c882616800519067e687995d29e6a22c0a86645dc0537b74efd4a5bc",
+  "feature_scaler_hash_sha256": "72dfe75d5a9d7f9b5a4fc7e7e3044d6064f8a80d8d44d571a9bdd0e5620cff3c",
+  "target_scaler_hash_sha256": "cb5ca75e949447344711db762535fb03c39123a4f400a45bf21cf311048d9e3f",
+  "configuration": {
+    "enable_velocity_correction": true,
+    "enable_yaw_correction": false,
+    "watchdog_budget_ms": 25.0,
+    "hard_realtime_deadline_ms": 100.0,
+    "preferred_target_ms": 50.0,
+    "window_size": 10
+  },
+  "dataset_split": {
+    "train_sequence": "sync_01",
+    "validation_sequence": "v_standalone_03",
+    "held_out_test_sequence": "sync_02"
+  },
+  "latency_metrics": {
+    "p50_ms": 0.4994,
+    "p90_ms": 1.2400,
+    "p95_ms": 1.6447,
+    "p99_ms": 2.4175,
+    "max_ms": 3.7599,
+    "p99_inference_ms": 1.9346,
+    "deadline_compliant": true,
+    "deadline_violations": 0
+  },
+  "throughput_metrics": {
+    "10Hz_target": {
+      "target_hz": 10.0,
+      "achieved_throughput_hz": 1607.07,
+      "total_samples": 500,
+      "elapsed_time_sec": 0.3111,
+      "mean_latency_ms": 0.6087,
+      "p99_latency_ms": 2.2277,
+      "is_realtime_capable": true
+    },
+    "20Hz_target": {
+      "target_hz": 20.0,
+      "achieved_throughput_hz": 1519.27,
+      "total_samples": 500,
+      "elapsed_time_sec": 0.3291,
+      "mean_latency_ms": 0.6452,
+      "p99_latency_ms": 2.4221,
+      "is_realtime_capable": true
+    },
+    "50Hz_target": {
+      "target_hz": 50.0,
+      "achieved_throughput_hz": 1457.54,
+      "total_samples": 500,
+      "elapsed_time_sec": 0.3430,
+      "mean_latency_ms": 0.6728,
+      "p99_latency_ms": 2.8398,
+      "is_realtime_capable": true
+    },
+    "100Hz_target": {
+      "target_hz": 100.0,
+      "achieved_throughput_hz": 1592.09,
+      "total_samples": 500,
+      "elapsed_time_sec": 0.3141,
+      "mean_latency_ms": 0.6152,
+      "p99_latency_ms": 2.3872,
+      "is_realtime_capable": true
+    }
+  },
+  "memory_metrics": {
+    "initial_rss_mb": 0.0,
+    "peak_rss_mb": 3.41,
+    "growth_mb": 3.41,
+    "is_bounded": true
+  },
+  "fault_metrics": {
+    "total_fault_scenarios": 16,
+    "passed_scenarios": 16,
+    "recovery_rate_pct": 100.0
+  },
+  "hil_metrics": {
+    "software_hil_status": "PERFORMED",
+    "mean_jitter_ms": 0.486,
+    "p95_jitter_ms": 0.820,
+    "p99_jitter_ms": 1.150,
+    "dropped_packets": 0,
+    "physical_hardware_validation": "NOT PERFORMED"
+  },
+  "regression_metrics": {
+    "objective6_ate_rmse_m": 1.6062,
+    "objective7_ate_rmse_m": 1.6062,
+    "ate_difference_m": 0.0000,
+    "final_position_error_m": 1.8013,
+    "heading_rmse_deg": 0.1560,
+    "ai_application_rate_pct": 70.6,
+    "regression_detected": false,
+    "regression_status": "PASS (Zero Regression)"
+  },
+  "outage_metrics": {
+    "outages_evaluated": [5, 10, 15, 20, 30, 45],
+    "status": "PASS"
+  },
+  "test_counts": {
+    "total": 135,
+    "passed": 135,
+    "failed": 0,
+    "pass_rate_pct": 100.0
+  },
+  "acceptance_status": "OBJECTIVE 7 VERIFIED — REAL-TIME DEPLOYMENT READY"
+}

@@ -1,0 +1,158 @@
+[
+  {
+    "duration_sec": 5.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 25.0,
+    "distance_m": 45.39,
+    "classical": {
+      "ate_rmse_m": 0.3623,
+      "accumulated_drift_m": 0.6226,
+      "max_drift_m": 0.6226,
+      "drift_rate_pct": 1.372
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.3613,
+      "accumulated_drift_m": 0.6207,
+      "max_drift_m": 0.6207,
+      "drift_rate_pct": 1.367
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.3623,
+      "accumulated_drift_m": 0.6226,
+      "max_drift_m": 0.6226,
+      "drift_rate_pct": 1.372
+    },
+    "improvement_vs_classical_pct": 0.01,
+    "improvement_vs_obj5_pct": -0.26
+  },
+  {
+    "duration_sec": 10.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 30.0,
+    "distance_m": 92.24,
+    "classical": {
+      "ate_rmse_m": 0.6305,
+      "accumulated_drift_m": 0.9028,
+      "max_drift_m": 0.9362,
+      "drift_rate_pct": 0.979
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.6278,
+      "accumulated_drift_m": 0.8976,
+      "max_drift_m": 0.9311,
+      "drift_rate_pct": 0.973
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.63,
+      "accumulated_drift_m": 0.9013,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.977
+    },
+    "improvement_vs_classical_pct": 0.08,
+    "improvement_vs_obj5_pct": -0.35
+  },
+  {
+    "duration_sec": 15.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 35.0,
+    "distance_m": 143.5,
+    "classical": {
+      "ate_rmse_m": 0.7173,
+      "accumulated_drift_m": 0.8182,
+      "max_drift_m": 0.9362,
+      "drift_rate_pct": 0.57
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.7136,
+      "accumulated_drift_m": 0.8148,
+      "max_drift_m": 0.9311,
+      "drift_rate_pct": 0.568
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.7165,
+      "accumulated_drift_m": 0.8186,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.57
+    },
+    "improvement_vs_classical_pct": 0.11,
+    "improvement_vs_obj5_pct": -0.4
+  },
+  {
+    "duration_sec": 20.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 40.0,
+    "distance_m": 197.23,
+    "classical": {
+      "ate_rmse_m": 0.7131,
+      "accumulated_drift_m": 0.5673,
+      "max_drift_m": 0.9362,
+      "drift_rate_pct": 0.288
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.7101,
+      "accumulated_drift_m": 0.5665,
+      "max_drift_m": 0.9311,
+      "drift_rate_pct": 0.287
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.713,
+      "accumulated_drift_m": 0.5707,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.289
+    },
+    "improvement_vs_classical_pct": 0.02,
+    "improvement_vs_obj5_pct": -0.41
+  },
+  {
+    "duration_sec": 30.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 50.0,
+    "distance_m": 292.31,
+    "classical": {
+      "ate_rmse_m": 0.7456,
+      "accumulated_drift_m": 0.9578,
+      "max_drift_m": 0.9784,
+      "drift_rate_pct": 0.328
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.7468,
+      "accumulated_drift_m": 0.9753,
+      "max_drift_m": 0.9956,
+      "drift_rate_pct": 0.334
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.75,
+      "accumulated_drift_m": 0.9792,
+      "max_drift_m": 0.9995,
+      "drift_rate_pct": 0.335
+    },
+    "improvement_vs_classical_pct": -0.6,
+    "improvement_vs_obj5_pct": -0.44
+  },
+  {
+    "duration_sec": 45.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 65.0,
+    "distance_m": 341.14,
+    "classical": {
+      "ate_rmse_m": 0.8761,
+      "accumulated_drift_m": 1.1476,
+      "max_drift_m": 1.1476,
+      "drift_rate_pct": 0.336
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.8861,
+      "accumulated_drift_m": 1.1663,
+      "max_drift_m": 1.1663,
+      "drift_rate_pct": 0.342
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.8895,
+      "accumulated_drift_m": 1.1701,
+      "max_drift_m": 1.1701,
+      "drift_rate_pct": 0.343
+    },
+    "improvement_vs_classical_pct": -1.53,
+    "improvement_vs_obj5_pct": -0.39
+  }
+]

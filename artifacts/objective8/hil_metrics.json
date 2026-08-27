@@ -1,0 +1,14 @@
+{
+  "total_streamed_epochs": 50,
+  "target_frequency_hz": 10.0,
+  "nominal_period_ms": 100.0,
+  "mean_jitter_ms": 0.42884252934232264,
+  "p95_jitter_ms": 1.0509896646736006,
+  "p99_jitter_ms": 1.1227304410146377,
+  "max_jitter_ms": 1.1402079865788501,
+  "late_packets_count": 0,
+  "dropped_packets_count": 0,
+  "software_hil_compliance": true,
+  "hardware_validation_label": "NOT PERFORMED \u2014 SOFTWARE-HIL / CPU EMULATION ONLY",
+  "status": "PASS"
+}

@@ -1,0 +1,11 @@
+{
+  "total_timesteps": 900,
+  "applied_timesteps": 635,
+  "fallback_timesteps": 265,
+  "application_rate_pct": 70.56,
+  "fallback_rate_pct": 29.44,
+  "fallback_reason_breakdown": {
+    "FALLBACK_OOD_FEATURE_SHIFT": 4,
+    "FALLBACK_STATIONARY": 261
+  }
+}

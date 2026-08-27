@@ -1,0 +1,18 @@
+{
+  "objective": "Objective 6",
+  "enable_ai": true,
+  "enable_velocity_correction": true,
+  "enable_yaw_correction": false,
+  "enable_sensor_gate": true,
+  "enable_stationary_gate": true,
+  "enable_ood_gate": true,
+  "enable_temporal_consistency_gate": true,
+  "enable_confidence_gate": true,
+  "hard_velocity_bound_ms": 3.0,
+  "hard_yaw_bound_rads": 0.5,
+  "ood_threshold": 10.935177850027683,
+  "min_confidence_threshold": 0.45,
+  "max_velocity_jump_ms": 0.6,
+  "window_size_epochs": 10,
+  "sampling_rate_hz": 10
+}

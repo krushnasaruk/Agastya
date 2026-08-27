@@ -1,0 +1,11 @@
+{
+  "target_frequency_hz": 10.0,
+  "target_period_ms": 100.0,
+  "total_streamed_epochs": 100,
+  "mean_jitter_ms": 0.4862,
+  "p95_jitter_ms": 0.9569,
+  "p99_jitter_ms": 1.5931,
+  "max_jitter_ms": 1.6877,
+  "dropped_epochs": 0,
+  "software_hil_status": "PASS (Jitter within real-time limits)"
+}

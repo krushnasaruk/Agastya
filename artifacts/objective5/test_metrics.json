@@ -1,0 +1,24 @@
+{
+  "delta_velocity_ms": {
+    "target_name": "delta_velocity_ms",
+    "num_samples": 891,
+    "mae": 0.00396,
+    "rmse": 0.00648,
+    "bias": -0.00032,
+    "r2_score": -15.1246,
+    "pearson_correlation": -0.0052,
+    "trivial_zero_rmse": 0.00162,
+    "improvement_over_zero_pct": -301.31
+  },
+  "delta_yaw_rate_rads": {
+    "target_name": "delta_yaw_rate_rads",
+    "num_samples": 891,
+    "mae": 0.00466,
+    "rmse": 0.00696,
+    "bias": -0.00122,
+    "r2_score": -0.0437,
+    "pearson_correlation": 0.4935,
+    "trivial_zero_rmse": 0.00682,
+    "improvement_over_zero_pct": -2.16
+  }
+}

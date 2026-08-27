@@ -1,0 +1,14 @@
+{
+  "target_baseline": "objective6_selective_velocity",
+  "reference_ate_rmse_m": 1.6062,
+  "actual_ate_rmse_m": 1.6062,
+  "ate_difference_m": 0.0,
+  "reference_final_error_m": 1.8013,
+  "actual_final_error_m": 1.8013,
+  "final_difference_m": 0.0,
+  "reference_heading_rmse_deg": 0.156,
+  "actual_heading_rmse_deg": 0.156,
+  "heading_difference_deg": 0.0,
+  "regression_detected": false,
+  "regression_check_status": "PASS (Zero Regression)"
+}

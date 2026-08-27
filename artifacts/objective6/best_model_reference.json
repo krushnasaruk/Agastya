@@ -1,0 +1,7 @@
+{
+  "source_objective": "Objective 5",
+  "model_type": "CausalResidualGRU",
+  "weights_path": "..\\objective5\\best_model.pt",
+  "parameters_count": 28194,
+  "frozen": true
+}

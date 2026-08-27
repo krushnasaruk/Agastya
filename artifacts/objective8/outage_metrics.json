@@ -1,0 +1,68 @@
+{
+  "outage_start_time_sec": 20.0,
+  "durations_evaluated_sec": [
+    5.0,
+    10.0,
+    15.0,
+    20.0,
+    30.0,
+    45.0
+  ],
+  "outage_records": [
+    {
+      "outage_duration_sec": 5.0,
+      "traveled_distance_m": 44.48405190189324,
+      "classical_ate_m": 0.36165070047942643,
+      "fp32_ai_ate_m": 0.3216970446130311,
+      "int8_quantized_ate_m": 0.32666404735038285,
+      "fp32_improvement_pct": 11.047581496020966,
+      "int8_improvement_pct": 9.674156052418294
+    },
+    {
+      "outage_duration_sec": 10.0,
+      "traveled_distance_m": 91.26628116317728,
+      "classical_ate_m": 0.638305577027947,
+      "fp32_ai_ate_m": 0.54254374034671,
+      "int8_quantized_ate_m": 0.5389777134773869,
+      "fp32_improvement_pct": 15.002506656313328,
+      "int8_improvement_pct": 15.561177455639125
+    },
+    {
+      "outage_duration_sec": 15.0,
+      "traveled_distance_m": 142.42875413050416,
+      "classical_ate_m": 0.729579562822921,
+      "fp32_ai_ate_m": 0.6124329788680578,
+      "int8_quantized_ate_m": 0.5998080986674076,
+      "fp32_improvement_pct": 16.056724985770508,
+      "int8_improvement_pct": 17.78715725717371
+    },
+    {
+      "outage_duration_sec": 20.0,
+      "traveled_distance_m": 196.02433150701825,
+      "classical_ate_m": 0.7269702431286829,
+      "fp32_ai_ate_m": 0.621108301707566,
+      "int8_quantized_ate_m": 0.6068087795529187,
+      "fp32_improvement_pct": 14.56207354038533,
+      "int8_improvement_pct": 16.529075943827056
+    },
+    {
+      "outage_duration_sec": 30.0,
+      "traveled_distance_m": 291.6121580220688,
+      "classical_ate_m": 0.7545310567247081,
+      "fp32_ai_ate_m": 0.6510249917326101,
+      "int8_quantized_ate_m": 0.6326270442423114,
+      "fp32_improvement_pct": 13.717933022054835,
+      "int8_improvement_pct": 16.15626174640994
+    },
+    {
+      "outage_duration_sec": 45.0,
+      "traveled_distance_m": 341.1360870232255,
+      "classical_ate_m": 0.8783631519712205,
+      "fp32_ai_ate_m": 0.6927802735801323,
+      "int8_quantized_ate_m": 0.6770768202075325,
+      "fp32_improvement_pct": 21.12826317618215,
+      "int8_improvement_pct": 22.916071935845867
+    }
+  ],
+  "status": "PASS"
+}

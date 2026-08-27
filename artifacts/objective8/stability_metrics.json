@@ -1,0 +1,10 @@
+{
+  "total_checked_states": 6450,
+  "nan_occurrences": 0,
+  "inf_occurrences": 0,
+  "speed_explosions": 0,
+  "position_explosions": 0,
+  "heading_wrapping_errors": 0,
+  "is_numerically_stable": true,
+  "status": "PASS"
+}

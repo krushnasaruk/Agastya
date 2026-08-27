@@ -1,0 +1,83 @@
+{
+  "total_epochs": 1000,
+  "deadline_ms": 100.0,
+  "preferred_target_ms": 50.0,
+  "p99_total_ms": 7.112,
+  "p99_inference_ms": 5.214,
+  "deadline_violation_count": 0,
+  "deadline_violation_pct": 0.0,
+  "target_violation_count": 0,
+  "target_violation_pct": 0.0,
+  "deadline_compliant": true,
+  "preferred_target_compliant": true,
+  "total_latency": {
+    "mean_ms": 4.2007,
+    "std_ms": 1.4259,
+    "median_ms": 4.3761,
+    "p90_ms": 6.0585,
+    "p95_ms": 6.4477,
+    "p99_ms": 7.112,
+    "max_ms": 8.1571,
+    "min_ms": 1.8186
+  },
+  "neural_inference": {
+    "mean_ms": 2.8005,
+    "std_ms": 1.0572,
+    "median_ms": 2.8167,
+    "p90_ms": 4.2534,
+    "p95_ms": 4.5923,
+    "p99_ms": 5.214,
+    "max_ms": 5.9571,
+    "min_ms": 1.0905
+  },
+  "classical_physics": {
+    "mean_ms": 0.2181,
+    "std_ms": 0.1049,
+    "median_ms": 0.2381,
+    "p90_ms": 0.2785,
+    "p95_ms": 0.2922,
+    "p99_ms": 0.3457,
+    "max_ms": 1.6866,
+    "min_ms": 0.1056
+  },
+  "feature_extraction": {
+    "mean_ms": 0.0573,
+    "std_ms": 0.0486,
+    "median_ms": 0.0621,
+    "p90_ms": 0.0714,
+    "p95_ms": 0.0759,
+    "p99_ms": 0.0991,
+    "max_ms": 1.228,
+    "min_ms": 0.0284
+  },
+  "policy_evaluation": {
+    "mean_ms": 0.459,
+    "std_ms": 0.1567,
+    "median_ms": 0.5055,
+    "p90_ms": 0.6053,
+    "p95_ms": 0.63,
+    "p99_ms": 0.7844,
+    "max_ms": 2.1882,
+    "min_ms": 0.1068
+  },
+  "sensor_validation": {
+    "mean_ms": 0.1852,
+    "std_ms": 0.0628,
+    "median_ms": 0.2099,
+    "p90_ms": 0.2423,
+    "p95_ms": 0.2532,
+    "p99_ms": 0.2875,
+    "max_ms": 1.1322,
+    "min_ms": 0.0916
+  },
+  "telemetry": {
+    "mean_ms": 0.01,
+    "std_ms": 0.0,
+    "median_ms": 0.01,
+    "p90_ms": 0.01,
+    "p95_ms": 0.01,
+    "p99_ms": 0.01,
+    "max_ms": 0.01,
+    "min_ms": 0.01
+  }
+}

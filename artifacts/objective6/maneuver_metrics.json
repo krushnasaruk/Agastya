@@ -1,0 +1,113 @@
+{
+  "classical": {
+    "acceleration": {
+      "sample_count": 61,
+      "ate_rmse_m": 1.2732,
+      "mean_error_m": 1.268,
+      "max_error_m": 1.4985,
+      "heading_rmse_deg": 1.0651
+    },
+    "aggressive_turn": {
+      "sample_count": 199,
+      "ate_rmse_m": 1.6478,
+      "mean_error_m": 1.6208,
+      "max_error_m": 1.9843,
+      "heading_rmse_deg": 2.1567
+    },
+    "braking": {
+      "sample_count": 307,
+      "ate_rmse_m": 1.5981,
+      "mean_error_m": 1.5794,
+      "max_error_m": 1.8251,
+      "heading_rmse_deg": 2.6685
+    },
+    "stationary": {
+      "sample_count": 261,
+      "ate_rmse_m": 1.827,
+      "mean_error_m": 1.827,
+      "max_error_m": 1.827,
+      "heading_rmse_deg": 16.2219
+    },
+    "straight": {
+      "sample_count": 72,
+      "ate_rmse_m": 1.271,
+      "mean_error_m": 1.262,
+      "max_error_m": 1.8239,
+      "heading_rmse_deg": 1.1454
+    }
+  },
+  "objective5_velocity": {
+    "acceleration": {
+      "sample_count": 61,
+      "ate_rmse_m": 1.2535,
+      "mean_error_m": 1.247,
+      "max_error_m": 1.4985,
+      "heading_rmse_deg": 1.0651
+    },
+    "aggressive_turn": {
+      "sample_count": 199,
+      "ate_rmse_m": 1.5921,
+      "mean_error_m": 1.5645,
+      "max_error_m": 1.9244,
+      "heading_rmse_deg": 2.1567
+    },
+    "braking": {
+      "sample_count": 307,
+      "ate_rmse_m": 1.5595,
+      "mean_error_m": 1.5402,
+      "max_error_m": 1.7888,
+      "heading_rmse_deg": 2.6685
+    },
+    "stationary": {
+      "sample_count": 261,
+      "ate_rmse_m": 1.7903,
+      "mean_error_m": 1.7903,
+      "max_error_m": 1.7903,
+      "heading_rmse_deg": 16.2219
+    },
+    "straight": {
+      "sample_count": 72,
+      "ate_rmse_m": 1.2441,
+      "mean_error_m": 1.2338,
+      "max_error_m": 1.7879,
+      "heading_rmse_deg": 1.1454
+    }
+  },
+  "objective6_selective": {
+    "acceleration": {
+      "sample_count": 61,
+      "ate_rmse_m": 1.2537,
+      "mean_error_m": 1.2472,
+      "max_error_m": 1.4985,
+      "heading_rmse_deg": 1.0651
+    },
+    "aggressive_turn": {
+      "sample_count": 199,
+      "ate_rmse_m": 1.6042,
+      "mean_error_m": 1.5769,
+      "max_error_m": 1.9371,
+      "heading_rmse_deg": 2.1567
+    },
+    "braking": {
+      "sample_count": 307,
+      "ate_rmse_m": 1.5687,
+      "mean_error_m": 1.5489,
+      "max_error_m": 1.7997,
+      "heading_rmse_deg": 2.6685
+    },
+    "stationary": {
+      "sample_count": 261,
+      "ate_rmse_m": 1.8012,
+      "mean_error_m": 1.8012,
+      "max_error_m": 1.8013,
+      "heading_rmse_deg": 16.2219
+    },
+    "straight": {
+      "sample_count": 72,
+      "ate_rmse_m": 1.245,
+      "mean_error_m": 1.2344,
+      "max_error_m": 1.7989,
+      "heading_rmse_deg": 1.1454
+    }
+  }
+}

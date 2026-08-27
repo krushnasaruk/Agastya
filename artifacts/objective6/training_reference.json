@@ -1,0 +1,8 @@
+{
+  "training_sequence": "sync_01",
+  "validation_sequence": "v_standalone_03",
+  "held_out_test_sequence": "sync_02",
+  "scaler_fitted_on": "sync_01",
+  "ood_baseline_fitted_on": "sync_01",
+  "test_set_isolation_verified": true
+}

@@ -1,0 +1,122 @@
+{
+  "D1_sensor_only": {
+    "metrics": {
+      "ate_rmse_m": 1.5968,
+      "final_position_error_m": 1.7903,
+      "max_position_error_m": 1.9244,
+      "median_position_error_m": 1.7183,
+      "p90_position_error_m": 1.7903,
+      "p95_position_error_m": 1.8189,
+      "drift_rate_pct": 0.276,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00612,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "application_rate_pct": 100.0,
+    "fallback_rate_pct": 0.0
+  },
+  "D2_stationary_only": {
+    "metrics": {
+      "ate_rmse_m": 1.5968,
+      "final_position_error_m": 1.7903,
+      "max_position_error_m": 1.9244,
+      "median_position_error_m": 1.7183,
+      "p90_position_error_m": 1.7903,
+      "p95_position_error_m": 1.8189,
+      "drift_rate_pct": 0.276,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00612,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "application_rate_pct": 71.0,
+    "fallback_rate_pct": 29.0
+  },
+  "D3_ood_only": {
+    "metrics": {
+      "ate_rmse_m": 1.6062,
+      "final_position_error_m": 1.8013,
+      "max_position_error_m": 1.9371,
+      "median_position_error_m": 1.73,
+      "p90_position_error_m": 1.8013,
+      "p95_position_error_m": 1.8314,
+      "drift_rate_pct": 0.278,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00552,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "application_rate_pct": 99.56,
+    "fallback_rate_pct": 0.44
+  },
+  "D4_temporal_only": {
+    "metrics": {
+      "ate_rmse_m": 1.5968,
+      "final_position_error_m": 1.7903,
+      "max_position_error_m": 1.9244,
+      "median_position_error_m": 1.7183,
+      "p90_position_error_m": 1.7903,
+      "p95_position_error_m": 1.8189,
+      "drift_rate_pct": 0.276,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00612,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "application_rate_pct": 100.0,
+    "fallback_rate_pct": 0.0
+  },
+  "D5_confidence_only": {
+    "metrics": {
+      "ate_rmse_m": 1.5968,
+      "final_position_error_m": 1.7903,
+      "max_position_error_m": 1.9244,
+      "median_position_error_m": 1.7183,
+      "p90_position_error_m": 1.7903,
+      "p95_position_error_m": 1.8189,
+      "drift_rate_pct": 0.276,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00612,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "application_rate_pct": 100.0,
+    "fallback_rate_pct": 0.0
+  },
+  "D6_all_gates": {
+    "metrics": {
+      "ate_rmse_m": 1.6062,
+      "final_position_error_m": 1.8013,
+      "max_position_error_m": 1.9371,
+      "median_position_error_m": 1.73,
+      "p90_position_error_m": 1.8013,
+      "p95_position_error_m": 1.8314,
+      "drift_rate_pct": 0.278,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00552,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "application_rate_pct": 70.56,
+    "fallback_rate_pct": 29.44
+  }
+}

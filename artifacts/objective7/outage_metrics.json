@@ -1,0 +1,158 @@
+[
+  {
+    "duration_sec": 5.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 25.0,
+    "distance_m": 45.39,
+    "classical": {
+      "ate_rmse_m": 0.3623,
+      "accumulated_drift_m": 0.6226,
+      "max_drift_m": 0.6226,
+      "drift_rate_pct": 1.372
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.3623,
+      "accumulated_drift_m": 0.6226,
+      "max_drift_m": 0.6226,
+      "drift_rate_pct": 1.372
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.3623,
+      "accumulated_drift_m": 0.6226,
+      "max_drift_m": 0.6226,
+      "drift_rate_pct": 1.372
+    },
+    "improvement_vs_classical_pct": 0.0,
+    "improvement_vs_obj5_pct": 0.0
+  },
+  {
+    "duration_sec": 10.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 30.0,
+    "distance_m": 92.24,
+    "classical": {
+      "ate_rmse_m": 0.63,
+      "accumulated_drift_m": 0.9013,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.977
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.63,
+      "accumulated_drift_m": 0.9013,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.977
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.63,
+      "accumulated_drift_m": 0.9013,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.977
+    },
+    "improvement_vs_classical_pct": 0.0,
+    "improvement_vs_obj5_pct": 0.0
+  },
+  {
+    "duration_sec": 15.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 35.0,
+    "distance_m": 143.5,
+    "classical": {
+      "ate_rmse_m": 0.7165,
+      "accumulated_drift_m": 0.8186,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.57
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.7165,
+      "accumulated_drift_m": 0.8186,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.57
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.7165,
+      "accumulated_drift_m": 0.8186,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.57
+    },
+    "improvement_vs_classical_pct": 0.0,
+    "improvement_vs_obj5_pct": 0.0
+  },
+  {
+    "duration_sec": 20.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 40.0,
+    "distance_m": 197.23,
+    "classical": {
+      "ate_rmse_m": 0.713,
+      "accumulated_drift_m": 0.5707,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.289
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.713,
+      "accumulated_drift_m": 0.5707,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.289
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.713,
+      "accumulated_drift_m": 0.5707,
+      "max_drift_m": 0.9347,
+      "drift_rate_pct": 0.289
+    },
+    "improvement_vs_classical_pct": 0.0,
+    "improvement_vs_obj5_pct": 0.0
+  },
+  {
+    "duration_sec": 30.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 50.0,
+    "distance_m": 292.31,
+    "classical": {
+      "ate_rmse_m": 0.75,
+      "accumulated_drift_m": 0.9792,
+      "max_drift_m": 0.9995,
+      "drift_rate_pct": 0.335
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.75,
+      "accumulated_drift_m": 0.9792,
+      "max_drift_m": 0.9995,
+      "drift_rate_pct": 0.335
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.75,
+      "accumulated_drift_m": 0.9792,
+      "max_drift_m": 0.9995,
+      "drift_rate_pct": 0.335
+    },
+    "improvement_vs_classical_pct": 0.0,
+    "improvement_vs_obj5_pct": 0.0
+  },
+  {
+    "duration_sec": 45.0,
+    "start_time_sec": 20.0,
+    "end_time_sec": 65.0,
+    "distance_m": 341.14,
+    "classical": {
+      "ate_rmse_m": 0.8895,
+      "accumulated_drift_m": 1.1701,
+      "max_drift_m": 1.1701,
+      "drift_rate_pct": 0.343
+    },
+    "objective5_velocity": {
+      "ate_rmse_m": 0.8895,
+      "accumulated_drift_m": 1.1701,
+      "max_drift_m": 1.1701,
+      "drift_rate_pct": 0.343
+    },
+    "objective6_selective": {
+      "ate_rmse_m": 0.8895,
+      "accumulated_drift_m": 1.1701,
+      "max_drift_m": 1.1701,
+      "drift_rate_pct": 0.343
+    },
+    "improvement_vs_classical_pct": 0.0,
+    "improvement_vs_obj5_pct": 0.0
+  }
+]

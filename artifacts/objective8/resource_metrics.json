@@ -1,0 +1,35 @@
+{
+  "total_navigation_epochs": 5450,
+  "total_ai_inferences": 4680,
+  "total_fallbacks": 770,
+  "ai_application_rate_pct": 85.87155963302753,
+  "latency_profile_ms": {
+    "p50": 3.792800009250641,
+    "p90": 5.861699988599867,
+    "p95": 6.328055004996713,
+    "p99": 7.384653998306031,
+    "max": 104.08659998211078,
+    "mean": 3.882886898974085,
+    "violations_over_budget": 3
+  },
+  "memory_profile": {
+    "initial_rss_mb": 0.0,
+    "final_rss_mb": 0.0,
+    "peak_rss_mb": 0.0,
+    "net_growth_mb": 0.0,
+    "is_bounded": true,
+    "growth_slope_mb_per_epoch": 0.0
+  },
+  "cpu_profile": {
+    "current_num_threads": 10,
+    "default_num_threads": 10,
+    "is_single_core_simulated": false,
+    "torch_device": "cpu"
+  },
+  "resource_compliance": {
+    "memory_compliant": true,
+    "latency_compliant": false,
+    "memory_violations_count": 0,
+    "latency_violations_count": 3
+  }
+}

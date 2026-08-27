@@ -1,0 +1,105 @@
+{
+  "total_fault_scenarios": 16,
+  "passed_scenarios": 16,
+  "failed_scenarios": 0,
+  "all_faults_handled_gracefully": true,
+  "scenario_details": [
+    {
+      "id": 1,
+      "name": "NaN Sensor Value",
+      "passed": true,
+      "reason": "INVALID_WHEEL_SPEED"
+    },
+    {
+      "id": 2,
+      "name": "Inf Sensor Value",
+      "passed": true,
+      "reason": "INVALID_ACCELERATION"
+    },
+    {
+      "id": 3,
+      "name": "Missing Sensor Channel",
+      "passed": true,
+      "reason": "INVALID_WHEEL_SPEED"
+    },
+    {
+      "id": 4,
+      "name": "Malformed Packet",
+      "passed": true,
+      "reason": "INVALID_WHEEL_SPEED"
+    },
+    {
+      "id": 5,
+      "name": "Zero dt",
+      "passed": true,
+      "reason": "INVALID_DT"
+    },
+    {
+      "id": 6,
+      "name": "Negative dt",
+      "passed": true,
+      "reason": "INVALID_DT"
+    },
+    {
+      "id": 7,
+      "name": "Non-Monotonic Timestamp",
+      "passed": true,
+      "reason": "NON_MONOTONIC_TIMESTAMP"
+    },
+    {
+      "id": 8,
+      "name": "Timestamp Discontinuity",
+      "passed": true,
+      "reason": "INVALID_DT"
+    },
+    {
+      "id": 9,
+      "name": "Wheel Speed Outlier",
+      "passed": true,
+      "reason": "INVALID_WHEEL_SPEED"
+    },
+    {
+      "id": 10,
+      "name": "Acceleration Outlier",
+      "passed": true,
+      "reason": "INVALID_ACCELERATION"
+    },
+    {
+      "id": 11,
+      "name": "Yaw Rate Outlier",
+      "passed": true,
+      "reason": "INVALID_YAW_RATE"
+    },
+    {
+      "id": 12,
+      "name": "Model Inference Exception",
+      "passed": true,
+      "reason": "AI_EXCEPTION"
+    },
+    {
+      "id": 13,
+      "name": "Model Inference Timeout",
+      "passed": true,
+      "reason": "AI_TIMEOUT"
+    },
+    {
+      "id": 14,
+      "name": "Invalid Neural Residual",
+      "passed": true,
+      "reason": "FALLBACK_TEMPORAL_JUMP (NAN_OR_INF_INPUT)"
+    },
+    {
+      "id": 15,
+      "name": "Stationary ZUPT Gate",
+      "passed": true,
+      "reason": "FALLBACK_STATIONARY"
+    },
+    {
+      "id": 16,
+      "name": "Resource Budget Tracking",
+      "passed": true,
+      "reason": "PROFILED"
+    }
+  ],
+  "status": "PASS"
+}

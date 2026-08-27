@@ -1,0 +1,38 @@
+{
+  "10Hz_target": {
+    "target_hz": 10.0,
+    "achieved_throughput_hz": 260.68794506068383,
+    "total_samples": 500,
+    "elapsed_time_sec": 1.9180019999912474,
+    "mean_latency_ms": 3.6551,
+    "p99_latency_ms": 6.663,
+    "is_realtime_capable": true
+  },
+  "20Hz_target": {
+    "target_hz": 20.0,
+    "achieved_throughput_hz": 217.47856999029935,
+    "total_samples": 500,
+    "elapsed_time_sec": 2.2990770999749657,
+    "mean_latency_ms": 4.403,
+    "p99_latency_ms": 7.8152,
+    "is_realtime_capable": true
+  },
+  "50Hz_target": {
+    "target_hz": 50.0,
+    "achieved_throughput_hz": 259.47947276140997,
+    "total_samples": 500,
+    "elapsed_time_sec": 1.9269346999935806,
+    "mean_latency_ms": 3.6733,
+    "p99_latency_ms": 6.5492,
+    "is_realtime_capable": true
+  },
+  "100Hz_target": {
+    "target_hz": 100.0,
+    "achieved_throughput_hz": 215.10228866637252,
+    "total_samples": 500,
+    "elapsed_time_sec": 2.3244755000050645,
+    "mean_latency_ms": 4.4351,
+    "p99_latency_ms": 7.3875,
+    "is_realtime_capable": true
+  }
+}

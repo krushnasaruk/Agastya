@@ -1,0 +1,10 @@
+{
+  "nan_occurrences": 0,
+  "inf_occurrences": 0,
+  "heading_wrapping_violations": 0,
+  "state_explosion_events": 0,
+  "max_observed_speed_ms": 10.0,
+  "max_observed_step_m": 1.0,
+  "is_numerically_stable": true,
+  "stability_status": "PASS (Zero NaN/Inf, Bounded State)"
+}

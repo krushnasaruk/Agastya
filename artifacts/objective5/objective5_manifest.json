@@ -1,0 +1,223 @@
+{
+  "project": "AGASTYA",
+  "objective": 5,
+  "model_name": "CausalResidualGRU",
+  "feature_count": 16,
+  "feature_order": [
+    "wheel_speed_fl_ms",
+    "wheel_speed_fr_ms",
+    "wheel_speed_rl_ms",
+    "wheel_speed_rr_ms",
+    "wheel_speed_rear_mean_ms",
+    "wheel_speed_rear_diff_ms",
+    "wheel_speed_front_rear_diff_ms",
+    "accel_x_ms2",
+    "jerk_longitudinal_ms3",
+    "yaw_rate_rads",
+    "yaw_acceleration_rads2",
+    "dt_sec",
+    "classical_forward_speed_ms",
+    "estimated_curvature_inv_m",
+    "is_stationary_flag",
+    "slip_detected_flag"
+  ],
+  "window_size": 10,
+  "training_sequence": "sync_01",
+  "validation_sequence": "v_standalone_03",
+  "test_sequence": "sync_02",
+  "seed": 42,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "batch_size": 64,
+  "best_epoch": 40,
+  "final_training_loss": 1.017522,
+  "final_validation_loss": 0.3580800337450845,
+  "residual_test_metrics": {
+    "delta_velocity_ms": {
+      "target_name": "delta_velocity_ms",
+      "num_samples": 891,
+      "mae": 0.00396,
+      "rmse": 0.00648,
+      "bias": -0.00032,
+      "r2_score": -15.1246,
+      "pearson_correlation": -0.0052,
+      "trivial_zero_rmse": 0.00162,
+      "improvement_over_zero_pct": -301.31
+    },
+    "delta_yaw_rate_rads": {
+      "target_name": "delta_yaw_rate_rads",
+      "num_samples": 891,
+      "mae": 0.00466,
+      "rmse": 0.00696,
+      "bias": -0.00122,
+      "r2_score": -0.0437,
+      "pearson_correlation": 0.4935,
+      "trivial_zero_rmse": 0.00682,
+      "improvement_over_zero_pct": -2.16
+    }
+  },
+  "classical_navigation_metrics": {
+    "ate_rmse_m": 1.6366,
+    "final_position_error_m": 1.827,
+    "max_position_error_m": 1.9843,
+    "median_position_error_m": 1.7582,
+    "p90_position_error_m": 1.827,
+    "p95_position_error_m": 1.8768,
+    "drift_rate_pct": 0.282,
+    "heading_rmse_deg": 0.156,
+    "final_heading_error_deg": 0.307,
+    "max_heading_error_deg": 0.443,
+    "velocity_rmse_ms": 0.00161,
+    "total_trajectory_distance_m": 647.92,
+    "evaluation_duration_sec": 89.9,
+    "num_samples": 900
+  },
+  "ai_navigation_metrics": {
+    "ate_rmse_m": 2.7557,
+    "final_position_error_m": 3.6982,
+    "max_position_error_m": 3.6982,
+    "median_position_error_m": 2.7253,
+    "p90_position_error_m": 3.6982,
+    "p95_position_error_m": 3.6982,
+    "drift_rate_pct": 0.571,
+    "heading_rmse_deg": 1.019,
+    "final_heading_error_deg": 0.857,
+    "max_heading_error_deg": 1.88,
+    "velocity_rmse_ms": 0.00612,
+    "total_trajectory_distance_m": 647.92,
+    "evaluation_duration_sec": 89.9,
+    "num_samples": 900
+  },
+  "gnss_outage_comparison": [
+    {
+      "outage_id": "outage_5s_t20s_turning",
+      "duration_sec": 5.0,
+      "start_time_sec": 20.102125420832284,
+      "end_time_sec": 25.099493041234442,
+      "distance_traveled_m": 45.39,
+      "maneuver_type": "turning",
+      "classical": {
+        "accumulated_drift_m": 0.6226,
+        "max_drift_m": 0.6226,
+        "outage_ate_rmse_m": 0.3623,
+        "drift_rate_pct": 1.372
+      },
+      "ai_corrected": {
+        "accumulated_drift_m": 0.7362,
+        "max_drift_m": 0.7362,
+        "outage_ate_rmse_m": 0.416,
+        "drift_rate_pct": 1.622
+      },
+      "ate_improvement_pct": -14.83
+    },
+    {
+      "outage_id": "outage_10s_t20s_turning",
+      "duration_sec": 10.0,
+      "start_time_sec": 20.102125420832284,
+      "end_time_sec": 30.10064331917046,
+      "distance_traveled_m": 92.24,
+      "maneuver_type": "turning",
+      "classical": {
+        "accumulated_drift_m": 0.9028,
+        "max_drift_m": 0.9362,
+        "outage_ate_rmse_m": 0.6305,
+        "drift_rate_pct": 0.979
+      },
+      "ai_corrected": {
+        "accumulated_drift_m": 1.2904,
+        "max_drift_m": 1.3168,
+        "outage_ate_rmse_m": 0.8097,
+        "drift_rate_pct": 1.399
+      },
+      "ate_improvement_pct": -28.42
+    },
+    {
+      "outage_id": "outage_30s_t20s_turning",
+      "duration_sec": 30.0,
+      "start_time_sec": 20.102125420832284,
+      "end_time_sec": 50.000716302358875,
+      "distance_traveled_m": 292.31,
+      "maneuver_type": "turning",
+      "classical": {
+        "accumulated_drift_m": 0.9578,
+        "max_drift_m": 0.9784,
+        "outage_ate_rmse_m": 0.7456,
+        "drift_rate_pct": 0.328
+      },
+      "ai_corrected": {
+        "accumulated_drift_m": 3.7951,
+        "max_drift_m": 3.7951,
+        "outage_ate_rmse_m": 1.9836,
+        "drift_rate_pct": 1.298
+      },
+      "ate_improvement_pct": -166.05
+    }
+  ],
+  "ablation_metrics": {
+    "A_classical_only": {
+      "ate_rmse_m": 1.6366,
+      "final_position_error_m": 1.827,
+      "max_position_error_m": 1.9843,
+      "median_position_error_m": 1.7582,
+      "p90_position_error_m": 1.827,
+      "p95_position_error_m": 1.8768,
+      "drift_rate_pct": 0.282,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00161,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "B_velocity_only": {
+      "ate_rmse_m": 1.5968,
+      "final_position_error_m": 1.7903,
+      "max_position_error_m": 1.9244,
+      "median_position_error_m": 1.7183,
+      "p90_position_error_m": 1.7903,
+      "p95_position_error_m": 1.8189,
+      "drift_rate_pct": 0.276,
+      "heading_rmse_deg": 0.156,
+      "final_heading_error_deg": 0.307,
+      "max_heading_error_deg": 0.443,
+      "velocity_rmse_ms": 0.00612,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "C_yaw_only": {
+      "ate_rmse_m": 2.7258,
+      "final_position_error_m": 3.633,
+      "max_position_error_m": 3.6331,
+      "median_position_error_m": 2.7351,
+      "p90_position_error_m": 3.6331,
+      "p95_position_error_m": 3.6331,
+      "drift_rate_pct": 0.561,
+      "heading_rmse_deg": 1.019,
+      "final_heading_error_deg": 0.857,
+      "max_heading_error_deg": 1.88,
+      "velocity_rmse_ms": 0.00161,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    },
+    "D_full_correction": {
+      "ate_rmse_m": 2.7557,
+      "final_position_error_m": 3.6982,
+      "max_position_error_m": 3.6982,
+      "median_position_error_m": 2.7253,
+      "p90_position_error_m": 3.6982,
+      "p95_position_error_m": 3.6982,
+      "drift_rate_pct": 0.571,
+      "heading_rmse_deg": 1.019,
+      "final_heading_error_deg": 0.857,
+      "max_heading_error_deg": 1.88,
+      "velocity_rmse_ms": 0.00612,
+      "total_trajectory_distance_m": 647.92,
+      "evaluation_duration_sec": 89.9,
+      "num_samples": 900
+    }
+  },
+  "timestamp": "2026-08-25T15:53:40.770264"
+}

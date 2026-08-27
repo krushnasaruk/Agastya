@@ -1,0 +1,98 @@
+{
+  "fields": [
+    {
+      "name": "timestamp",
+      "type": "float",
+      "unit": "s",
+      "description": "Epoch timestamp"
+    },
+    {
+      "name": "dt",
+      "type": "float",
+      "unit": "s",
+      "description": "Delta time"
+    },
+    {
+      "name": "classical_velocity",
+      "type": "float",
+      "unit": "m/s",
+      "description": "Baseline A forward speed"
+    },
+    {
+      "name": "corrected_velocity",
+      "type": "float",
+      "unit": "m/s",
+      "description": "AI-corrected forward speed"
+    },
+    {
+      "name": "predicted_delta_velocity",
+      "type": "float",
+      "unit": "m/s",
+      "description": "Model raw velocity residual"
+    },
+    {
+      "name": "predicted_delta_yaw",
+      "type": "float",
+      "unit": "rad/s",
+      "description": "Model raw yaw rate residual"
+    },
+    {
+      "name": "ai_applied",
+      "type": "bool",
+      "description": "True if AI correction applied"
+    },
+    {
+      "name": "fallback",
+      "type": "bool",
+      "description": "True if classical fallback used"
+    },
+    {
+      "name": "fallback_reason",
+      "type": "string",
+      "description": "Fallback cause code"
+    },
+    {
+      "name": "confidence",
+      "type": "float",
+      "range": "[0, 1]",
+      "description": "Prediction confidence score"
+    },
+    {
+      "name": "ood_score",
+      "type": "float",
+      "description": "Feature-space OOD distance"
+    },
+    {
+      "name": "inference_latency_ms",
+      "type": "float",
+      "unit": "ms",
+      "description": "Model forward pass time"
+    },
+    {
+      "name": "total_latency_ms",
+      "type": "float",
+      "unit": "ms",
+      "description": "Total epoch compute time"
+    },
+    {
+      "name": "watchdog_timeout",
+      "type": "bool",
+      "description": "True if AI watchdog timed out"
+    },
+    {
+      "name": "sensor_valid",
+      "type": "bool",
+      "description": "True if sensor signals valid"
+    },
+    {
+      "name": "stationary",
+      "type": "bool",
+      "description": "True if stationary ZUPT active"
+    },
+    {
+      "name": "navigation_state_valid",
+      "type": "bool",
+      "description": "True if navigation state is valid"
+    }
+  ]
+}
