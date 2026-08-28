@@ -1,55 +1,57 @@
 # REST & WebSocket API Specification
 
 ## 1. Overview
-The AGASTYA Navigation Service exposes a high-performance REST API for control and query operations, alongside a 50Hz WebSocket stream for real-time telemetry broadcast.
+The AGASTYA Navigation Service exposes a high-performance REST API for telemetry inspection, sensor fault injection, and simulation orchestration, alongside a 50Hz WebSocket stream for real-time cyber-avionics visualization.
 
 - **REST Base URL**: `http://localhost:8000/api`
-- **WebSocket Stream**: `ws://localhost:8000/ws/telemetry`
-- **Interactive OpenAPI Documentation**: `http://localhost:8000/docs`
-- **OpenAPI JSON Schema**: `docs/openapi.json`
+- **WebSocket Stream URL**: `ws://localhost:8000/ws/telemetry`
+- **Interactive OpenAPI Docs**: `http://localhost:8000/docs`
+- **OpenAPI Schema File**: `docs/openapi.json`
 
 ---
 
 ## 2. REST Endpoints
 
-### 2.1 Navigation State & Control
+### 2.1 Navigation State & Fusion Control
 
 #### `GET /api/navigation/state`
-Retrieves the current fused navigation state, 15-state covariance diagonal, and sensor status.
+Retrieves the latest fused navigation state, 15-state covariance diagonal, and sensor status.
 
 **Response `200 OK`**:
 ```json
 {
-  "timestamp": 14.52,
+  "timestamp": 14.520,
   "position": [124.72, -45.01, -12.04],
   "velocity": [14.12, 0.48, -0.09],
   "quaternion": [0.9238, 0.0, 0.0, 0.3826],
   "euler": {
     "roll": 1.25,
     "pitch": -0.78,
-    "yaw": 45.0
+    "yaw": 45.00
   },
   "accel_bias": [0.002, -0.001, 0.004],
   "gyro_bias": [0.0001, -0.0002, 0.0001],
   "cov_diag": [0.04, 0.05, 0.08, 0.01, 0.01, 0.02, 0.001, 0.001, 0.002, 0.0001, 0.0001, 0.0001, 0.00001, 0.00001, 0.00001],
   "mode": "ai_enhanced_ekf",
-  "gnss_valid": true
+  "gnss_valid": true,
+  "zupt_active": false,
+  "ai_applied": true
 }
 ```
 
 #### `POST /api/navigation/reset`
-Resets the Kalman filter covariance, nominal state integrators, and trajectory buffers.
+Resets the Kalman filter covariance matrix, nominal state integrators, and trajectory buffers.
 
 **Response `200 OK`**:
 ```json
 {
   "status": "success",
-  "message": "Navigation engine state reset"
+  "message": "Navigation engine state reset successfully"
 }
 ```
 
 #### `POST /api/navigation/mode`
-Switches active dead reckoning fusion mode.
+Dynamically switches active dead reckoning fusion mode.
 
 **Request Payload**:
 ```json
@@ -57,10 +59,14 @@ Switches active dead reckoning fusion mode.
   "mode": "ai_enhanced_ekf"
 }
 ```
-*Allowed modes*: `ai_enhanced_ekf`, `classical_ekf`, `pure_dr`, `ai_only`.
+*Allowed modes*:
+- `ai_enhanced_ekf`: Full 15-state ES-EKF with AI residual compensation and selective safety gating.
+- `classical_ekf`: Pure deterministic SINS + ES-EKF without AI residual updates.
+- `pure_dr`: Open-loop rear-axle odometry and midpoint heading dead-reckoning.
+- `ai_only`: Direct neural kinematic rollout.
 
 #### `POST /api/navigation/inject-fault`
-Dynamically injects synthetic sensor failures for robustness and failover validation.
+Dynamically injects synthetic sensor failures for robustness, failover, and fault-tolerance verification.
 
 **Request Payload**:
 ```json
@@ -70,19 +76,24 @@ Dynamically injects synthetic sensor failures for robustness and failover valida
   "duration_sec": 30.0
 }
 ```
-*Fault types*: `gnss_outage`, `gnss_jamming`, `accel_bias_jump`, `gyro_bias_jump`, `scale_factor_drift`.
+*Supported fault types*:
+- `gnss_outage`: Simulates complete GNSS blackout.
+- `gnss_jamming`: Simulates high multipath noise and geometric dilution of precision spikes.
+- `accel_bias_jump`: Injects step offset in accelerometer bias ($+0.5\text{ m/s}^2$).
+- `gyro_bias_jump`: Injects step offset in chassis gyroscope ($+0.05\text{ rad/s}$).
+- `wheel_dropout`: Simulates single-wheel CAN packet loss or encoder failure.
 
 ---
 
-### 2.2 Simulation Management
+### 2.2 Simulation Scenario Orchestration
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/api/simulation/scenarios` | List available trajectory scenarios (`normal`, `gps_loss`, `urban_canyon`). |
+| `GET` | `/api/simulation/scenarios` | List available pre-configured trajectory scenarios (`normal`, `gps_loss`, `urban_canyon`). |
 | `POST` | `/api/simulation/scenario/{name}` | Load and initialize specific trajectory scenario. |
-| `POST` | `/api/simulation/start` | Start or resume 100Hz simulation playback. |
+| `POST` | `/api/simulation/start` | Start or resume simulation playback at nominal rate. |
 | `POST` | `/api/simulation/pause` | Pause simulation execution. |
-| `POST` | `/api/simulation/reset` | Reset simulation time to $t=0$. |
+| `POST` | `/api/simulation/reset` | Reset simulation time to $t=0.0$. |
 | `POST` | `/api/simulation/speed` | Set playback multiplier (`1.0`, `2.0`, `5.0`, `10.0`). |
 
 ---
@@ -94,16 +105,18 @@ Dynamically injects synthetic sensor failures for robustness and failover valida
 ```json
 {
   "status": "healthy",
-  "timestamp": 1724773800.0,
   "service": "AGASTYA Navigation API",
   "version": "1.0.0",
-  "cuda_available": true
+  "objectives_completed": [1, 2, 3, 4, 5, 6, 7, 8],
+  "cuda_available": false,
+  "quantization": "INT8_DYNAMIC",
+  "realtime_engine": "ACTIVE"
 }
 ```
 
 ---
 
-## 3. WebSocket Real-Time Telemetry (`/ws/telemetry`)
+## 3. WebSocket Real-Time Telemetry Stream (`/ws/telemetry`)
 
 Broadcasts frame packets at 50Hz formatted as JSON:
 
