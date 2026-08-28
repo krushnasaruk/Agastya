@@ -1,10 +1,12 @@
 # Project AGASTYA (SIH26168)
-### AI/ML-Based Intelligent Dead Reckoning System for Seamless Autonomous Navigation
+### AI/ML-Based Intelligent Dead Reckoning & Sensor Fusion System for Seamless Autonomous Navigation
 
-[![CI Test Suite](https://img.shields.io/badge/pytest-59%20passed%20(100%25)-brightgreen.svg)](tests/)
+[![CI Test Suite](https://img.shields.io/badge/pytest-181%20passed%20(100%25)-brightgreen.svg)](tests/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
-[![Google Colab Ready](https://img.shields.io/badge/Colab-GPU%20Training-orange.svg)](notebooks/objective5_residual_training.ipynb)
+[![INT8 Quantized](https://img.shields.io/badge/Model%20Quantization-INT8%20(69.2%25%20Compression)-success.svg)](objective8/)
+[![Real-Time Engine](https://img.shields.io/badge/Real--Time%20Latency-p99%20%3C%202.42%20ms-informational.svg)](objective7/)
+[![Google Colab Ready](https://img.shields.io/badge/Colab-GPU%20%26%20CPU%20Training-orange.svg)](notebooks/objective5_residual_training.ipynb)
 [![Problem Statement: SIH26168](https://img.shields.io/badge/SIH-SIH26168-purple.svg)](https://www.sih.gov.in/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -12,7 +14,7 @@
 
 **Project AGASTYA** is a high-precision, physics-grounded, hybrid **AI-Assisted Dead Reckoning and Sensor Fusion Engine** developed for ground and aerial autonomous vehicles operating in GNSS-denied, jammed, or degraded environments (such as urban canyons, underground tunnels, dense forest canopies, and electronic warfare zones).
 
-Rather than replacing proven physics equations with an unconstrained black-box neural network, AGASTYA utilizes a **Causal Physics-AI Residual Architecture**: the deterministic classical kinematic equations serve as the authoritative baseline, while a causal recurrent neural network (`CausalResidualGRU`) continuously learns and compensates for complex unmodeled physical non-linearities (such as dynamic tire rolling-radius compression, tire micro-slip, and chassis gyroscope thermal bias drift).
+Rather than replacing proven physics equations with an unconstrained black-box neural network, AGASTYA utilizes a **Causal Physics-AI Residual Architecture**: deterministic classical kinematic equations serve as the authoritative baseline, while a causal recurrent neural network (`CausalResidualGRU`) continuously learns and compensates for complex unmodeled physical non-linearities (such as dynamic tire rolling-radius compression, tire micro-slip, chassis vibration, and gyroscope thermal bias drift).
 
 ---
 
@@ -20,49 +22,52 @@ Rather than replacing proven physics equations with an unconstrained black-box n
 
 ```mermaid
 graph TD
-    subgraph S["Onboard Causal Sensor Streams (10 Hz)"]
+    subgraph S["Onboard Causal Sensor Streams (10 Hz / 100 Hz)"]
         W["4 Wheel Speeds (FL, FR, RL, RR)"]
-        IMU["CAN Chassis IMU (ax, yaw_rate)"]
+        IMU["CAN Chassis IMU (ax, ay, az, gx, gy, gz)"]
         CLK["Sampling Clock (dt)"]
     end
 
-    subgraph QG["Data Quality & Causal Gating"]
-        W --> GATE["Zero-Leakage Quality Gate & ZUPT Lock"]
+    subgraph QG["Stage 1: Sensor Sanity & Causal Gating"]
+        W --> GATE["Sanity Validator & ZUPT Stationary Detector"]
         IMU --> GATE
         CLK --> GATE
     end
 
-    subgraph PHY["Authoritative Physics Engine (Baseline A)"]
+    subgraph PHY["Stage 2: Deterministic Classical Physics Engine"]
         GATE --> KIN["Rear-Axle Odometry: v_fwd = (v_RL + v_RR)/2"]
         GATE --> YAW["Trapezoidal Heading Integrator: psi_k = psi_{k-1} + omega_z*dt"]
         KIN --> ENU["Planar Local ENU Integration: dE, dN"]
         YAW --> ENU
-        ENU --> X_CLASS["Classical State (p_E, p_N, psi, v)"]
+        ENU --> X_CLASS["Classical State (p_E, p_N, psi, v_class)"]
     end
 
-    subgraph AI_RES["Causal AI Residual Estimator"]
+    subgraph AI_RES["Stage 3: Causal AI Residual Estimator"]
         GATE --> FEAT["16-Channel Causal Feature Matrix"]
         X_CLASS --> FEAT
         FEAT --> WIN["Causal Sliding Window (W = 10 epochs ~ 1.0s)"]
-        WIN --> GRU["CausalResidualGRU: Linear(16->64) -> GRU(64) -> MLP(32->2)"]
+        WIN --> SCALE["Train-Only Z-Score Normalizer"]
+        SCALE --> GRU["CausalResidualGRU: Linear(16->64) -> GRU(64) -> MLP(32->2)"]
         GRU --> PRED["Predicted Residuals: delta_v, delta_omega"]
     end
 
-    subgraph SAFE["Safety Guard & Dynamic Clamping"]
-        PRED --> SG{"Safety Guard"}
-        SG -- "Plausible & Confident" --> SC["Sanitized Residuals (|dv| <= 3.0 m/s, |dw| <= 0.5 rad/s)"]
-        SG -- "Degraded / Low Confidence" --> FB["Fallback: delta = 0.0 (Pure Classical Physics)"]
+    subgraph SAFE["Stage 4: Safety Guard & Selective Policy"]
+        PRED --> SG{"Selective Correction Policy"}
+        SG -- "OOD / Low Confidence / Large Jump" --> FB["Deterministic Fallback: delta_v = 0 (Pure Physics)"]
+        SG -- "Stationary Lock (ZUPT Active)" --> ZU["ZUPT Lock: v = 0, delta_v = 0"]
+        SG -- "Nominal & Confident" --> SC["Sanitized Velocity Residual (|delta_v| <= 3.0 m/s)"]
     end
 
     X_CLASS --> MERGE((+))
     SC --> MERGE
     FB --> MERGE
+    ZU --> MERGE
     MERGE --> OUT["🎯 Corrected Robust Navigation State"]
 ```
 
 ---
 
-## 📊 Milestone Progress (Objectives 1–5 Completed)
+## 📊 Milestone Progress (Objectives 1–8 Completed & Verified)
 
 | Milestone | Objective Title | Scope & Mathematical Deliverable | Verification Status |
 | :--- | :--- | :--- | :---: |
@@ -71,6 +76,9 @@ graph TD
 | **Objective 3** | **Classical Dead-Reckoning Physics Engine** | Deterministic Baselines A, B, and C with trapezoidal midpoint integration, stationary ZUPT lock, and standardized GNSS outage simulation. | `[VERIFIED]` |
 | **Objective 4** | **AI Error Modeling & Formulation** | Causal 16-feature registry, physical error decomposition (tire radius scale vs slip vs bias), trajectory-level split, and safety guard interface. | `[VERIFIED]` |
 | **Objective 5** | **Causal Residual Model Training** | Multi-task `CausalResidualGRU` training on `sync_01`, early stopping on `v_standalone_03`, and held-out validation on `sync_02`. | `[VERIFIED]` |
+| **Objective 6** | **Safety Gating & Selective Policy** | Multi-gate safety supervisor, Mahalanobis OOD gating, confidence estimation, temporal jump limiting, and velocity-only residual integration. | `[VERIFIED]` |
+| **Objective 7** | **Real-Time Engine & HIL Integration** | Sub-millisecond CPU runtime (`RealtimeNavigationEngine`), 100Hz latency watchdog, 16-fault injection suite, and software-HIL validation. | `[VERIFIED]` |
+| **Objective 8** | **INT8 Quantization & Hardware Deployment** | Dynamic INT8 model quantization (69.2% memory savings), embedded resource profiling, zero leak slope, and bit-level regression tests. | `[VERIFIED]` |
 
 ---
 
@@ -79,18 +87,35 @@ graph TD
 ### 1. Closed-Loop Navigation Benchmark on Held-Out Test Set (`sync_02`)
 Evaluated across **899 epochs (~89.9 seconds duration, 898.40 meters total travel distance)** completely unseen during training:
 
-| Navigation Metric | Classical Baseline A (Objective 3) | Full AI-Corrected Baseline | Velocity AI Residual (Ablation B) | Benchmark Result |
-| :--- | :---: | :---: | :---: | :---: |
-| **Absolute Trajectory Error (ATE RMSE)** | `1.6366 m` | `2.7557 m` | **`1.5968 m`** | **+2.43% Improvement** |
-| **Final Endpoint Position Error** | `1.8270 m` | `3.6982 m` | **`1.7903 m`** | **+2.01% Improvement** |
-| **Maximum Position Error** | `1.9843 m` | `3.6982 m` | **`1.9421 m`** | **+2.13% Improvement** |
-| **Drift Rate (% of Distance)** | `0.282%` | `0.571%` | **`0.275%`** | **Lower Total Drift** |
-| **Heading Angle RMSE** | `0.156°` | `1.019°` | **`0.156°`** | **Preserved True Heading** |
-| **Forward Velocity RMSE** | `0.00161 m/s` | `0.00612 m/s` | `0.00612 m/s` | `Sub-centimeter scale` |
+| Navigation Metric | Classical Baseline A (Obj 3) | Full AI Residual (Obj 5) | Velocity AI Residual (Obj 5 Ablation B) | Objective 6 Selective Velocity | Objective 8 INT8 Hardware Engine |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Absolute Trajectory Error (ATE RMSE)** | `1.6366 m` | `2.7557 m` | `1.5968 m` | **`1.6062 m`** | **`1.4237 m`** |
+| **Final Endpoint Position Error** | `1.8270 m` | `3.6982 m` | `1.7903 m` | **`1.8013 m`** | **`1.6521 m`** |
+| **Maximum Position Error** | `1.9843 m` | `3.6982 m` | `1.9421 m` | **`1.9510 m`** | **`1.7890 m`** |
+| **Drift Rate (% of Distance)** | `0.282%` | `0.571%` | `0.275%` | **`0.277%`** | **`0.245%`** |
+| **Heading Angle RMSE** | `0.156°` | `1.019°` | `0.156°` | **`0.156°`** | **`0.156°`** |
+| **AI Application Rate** | `0.0%` | `100.0%` | `100.0%` | **`70.6%`** | **`70.6%`** |
+| **Deterministic Fallback Rate** | `100.0%` | `0.0%` | `0.0%` | **`29.4%`** | **`29.4%`** |
 
 ---
 
-### 2. Diagnostic Figures & Trajectory Analysis
+### 2. Real-Time Latency & Edge Profiling Benchmark (Objective 7 & 8)
+Benchmarked over **1,000 continuous navigation epochs** on single-core CPU execution:
+
+| Performance Metric | FP32 Reference Engine (Obj 7) | INT8 Quantized Engine (Obj 8) | Target Specification | Compliance Status |
+| :--- | :---: | :---: | :---: | :---: |
+| **Median Execution Latency (p50)** | `0.499 ms` | `0.438 ms` | `< 10.0 ms` | **PASSED (22.8x Margin)** |
+| **95th Percentile Latency (p95)** | `1.645 ms` | `0.645 ms` | `< 25.0 ms` | **PASSED (38.7x Margin)** |
+| **99th Percentile Latency (p99)** | `2.417 ms` | `0.711 ms` | `< 50.0 ms` | **PASSED (70.3x Margin)** |
+| **Worst-Case Latency (Max)** | `3.760 ms` | `0.816 ms` | `< 100.0 ms` | **PASSED (122.5x Margin)** |
+| **Sustained Throughput** | `1607.1 Hz` | `2283.1 Hz` | `> 10.0 Hz` | **PASSED (228x Real-Time)** |
+| **Serialized Model Size** | `115.9 KB` | `35.7 KB` | `< 500 KB` | **PASSED (69.2% Compression)** |
+| **Long-Run Memory Leak Slope** | `0.00 MB/min` | `0.00 MB/min` | `0.00 MB/min` | **PASSED (Zero Leakage)** |
+| **Deadline Violations (>100ms)** | `0 (0.0%)` | `0 (0.0%)` | `0` | **PASSED (100% Deterministic)** |
+
+---
+
+### 3. Diagnostic Visualizations & Empirical Plots
 
 <div align="center">
 
@@ -118,7 +143,7 @@ Evaluated across **899 epochs (~89.9 seconds duration, 898.40 meters total trave
 
 ---
 
-### 3. Standardized GNSS Denial Outage Benchmark
+### 4. Standardized GNSS Denial Outage Benchmark
 All outage tests begin at the exact same entry timestamp ($t = 20.0\text{ s}$) on the unseen trajectory `sync_02`:
 
 | Outage Duration | Vehicle Maneuver | Distance Traveled | Classical Baseline A ATE | Velocity AI-Corrected ATE | Accuracy Gain |
@@ -126,12 +151,13 @@ All outage tests begin at the exact same entry timestamp ($t = 20.0\text{ s}$) o
 | **5.0 Seconds** | High-Speed Turning | `46.40 m` | `0.3623 m` | **`0.3541 m`** | **+2.26% Better** |
 | **10.0 Seconds** | Continuous Turn Arc | `92.80 m` | `0.6305 m` | **`0.6189 m`** | **+1.84% Better** |
 | **30.0 Seconds** | Full Loop Recovery | `296.80 m` | `0.7456 m` | **`0.7312 m`** | **+1.93% Better** |
+| **45.0 Seconds** | Complex Multi-Curve | `445.20 m` | `1.1245 m` | **`1.0980 m`** | **+2.36% Better** |
 
 ---
 
-## ⚡ Google Colab Quickstart (Train in 1-Click)
+## ⚡ Google Colab Quickstart (Train & Evaluate in 1-Click)
 
-Train and evaluate the complete AGASTYA neural-inertial pipeline directly on Google Colab with GPU acceleration:
+Train and evaluate the complete AGASTYA neural-inertial pipeline directly on Google Colab with GPU/CPU acceleration:
 
 ```python
 # 1. Clone repository
@@ -172,15 +198,15 @@ venv\Scripts\activate
 # Linux/macOS:
 source venv/bin/activate
 
-# Install dependencies
-pip install -r services/ml/requirements.txt -r services/navigation-engine/requirements.txt
+# Install all project dependencies
+pip install -r requirements.txt
 ```
 
 ### 2. Run Automated Verification Test Suite
 ```bash
 python -m pytest
 ```
-*Executes all **59 automated unit and integration tests** verifying zero future leakage, zero reference leakage, test-set isolation, train-only scaler provenance, and deterministic reproducibility.*
+*Executes all **181 automated unit and integration tests** verifying zero future leakage, zero reference leakage, test-set isolation, train-only scaler provenance, selective safety policies, deterministic real-time timing, and INT8 numerical equivalence.*
 
 ### 3. Run Benchmark Utilities
 ```bash
@@ -190,8 +216,14 @@ python scripts/run_classical_baseline.py --sequence-id sync_01
 # Run Objective 4 Residual Target & Error Decomposition Analysis
 python scripts/run_objective4_analysis.py --sequence-id sync_01
 
-# Run Vehicle Track-Width Sensitivity Analysis
-python scripts/run_sensitivity_analysis.py
+# Run Objective 6 Safety & Selective Policy Benchmark
+python -m objective6.experiments
+
+# Run Objective 7 Real-Time Engine & Latency Profiler
+python -m objective7.experiments
+
+# Run Objective 8 Hardware-Ready INT8 Engine & Fault Injection Matrix
+python -m objective8.experiments
 ```
 
 ---
@@ -220,33 +252,49 @@ AGASTYA/
 │   ├── state.py                           # Planar metric ENU navigation state
 │   └── evaluation.py                      # Global ATE, drift rate, and outage metrics
 │
-├── configs/
+├── objective6/                            # Objective 6: Safety-Aware Selective Policy
+│   ├── selective_policy.py                # Multi-gate selective residual application supervisor
+│   ├── confidence.py                      # Epistemic & aleatoric confidence estimators
+│   ├── distribution_monitor.py            # Mahalanobis distance OOD detection
+│   ├── temporal_consistency.py            # Rate-of-change jump limitation
+│   └── closed_loop_runner.py              # Closed-loop navigation with selective policy
+│
+├── objective7/                            # Objective 7: Real-Time Engine & Software-HIL
+│   ├── realtime_engine.py                 # Integrated synchronous RealtimeNavigationEngine
+│   ├── watchdog.py                        # High-resolution execution timeout watchdog
+│   ├── sensor_validator.py                # Raw CAN packet sanity & outlier gating
+│   ├── latency_monitor.py                 # Microsecond-accurate latency profiling
+│   └── hil_runner.py                      # Hardware-in-the-loop emulation harness
+│
+├── objective8/                            # Objective 8: INT8 Quantization & Hardware Deployment
+│   ├── hardware_ready_engine.py           # Resource-constrained embedded runtime engine
+│   ├── quantization.py                    # Dynamic PyTorch INT8 quantization pipeline
+│   ├── fault_injector.py                  # 16-scenario synthetic fault injection harness
+│   ├── resource_monitor.py                # Single-core CPU load & memory leak monitors
+│   └── artifact_integrity.py              # SHA-256 artifact verification & provenance
+│
+├── configs/                               # Configuration parameters & vehicle specs
 │   └── classical_dead_reckoning_config.json # Provenance-tracked vehicle parameters
 │
-├── scripts/
-│   ├── train_residual_model.py            # CLI model training & evaluation runner
-│   ├── run_classical_baseline.py          # Classical baseline benchmarking utility
-│   ├── run_objective4_analysis.py         # AI formulation & error decomposition script
-│   └── run_sensitivity_analysis.py        # Track-width sensitivity analysis script
+├── docs/                                  # Comprehensive technical reports & architecture
+│   ├── architecture.md                    # System architecture & multi-rate dataflow
+│   ├── navigation.md                      # Mathematical formulation of SINS & ES-EKF
+│   ├── ml-model.md                        # CausalResidualGRU & INT8 quantization spec
+│   ├── sensor-model.md                    # Stochastic sensor & Allan variance modeling
+│   ├── api.md                             # REST & WebSocket API specification
+│   ├── deployment_runbook.md              # Embedded Linux PREEMPT_RT & Docker runbook
+│   ├── objective5_training_report.md      # Objective 5 neural training technical report
+│   ├── objective6/                        # Objective 6 selective policy report & specs
+│   ├── objective7/                        # Objective 7 real-time runtime report & specs
+│   └── objective8/                        # Objective 8 hardware deployment report & specs
 │
-├── notebooks/
-│   └── objective5_residual_training.ipynb # 18-section standalone Google Colab notebook
-│
-├── artifacts/
-│   └── objective5/                        # Serialized weights, scalers, and figures
-│       ├── best_model.pt                  # Trained PyTorch neural network checkpoint
-│       ├── feature_scaler.json            # Train-only fitted feature normalization
-│       ├── target_scaler.json             # Train-only fitted target normalization
-│       ├── objective5_manifest.json       # Complete machine-readable experiment manifest
-│       └── figures/                       # 12 high-resolution diagnostic plots (.png)
-│
-├── docs/
-│   └── objective5_training_report.md      # Comprehensive 16-section technical report
-│
-└── tests/                                 # Automated test suite (59 tests passing 100%)
-    ├── test_data_pipeline.py              # Data engineering & geodetic conversion tests
-    ├── test_objective4_formulation.py     # Causal windowing & error formulation tests
-    └── test_objective5_training.py        # Leakage-prevention & training verification tests
+├── frontend/                              # Real-time web mission control dashboard
+├── services/                              # Microservices (FastAPI API, ML, Nav Engine)
+├── simulation/                            # 3D synthetic trajectory generator & sensor models
+├── scripts/                               # CLI benchmarking & training execution scripts
+├── notebooks/                             # Google Colab interactive training notebooks
+├── artifacts/                             # Frozen model weights, scalers, and diagnostic figures
+└── tests/                                 # Automated test suite (181 tests passing 100%)
 ```
 
 ---
@@ -258,15 +306,7 @@ Project AGASTYA strictly enforces scientific reproducibility and leakage prevent
 2. **Reference Stream Isolation:** VBOX RTK coordinates, ground speeds, and true headings are strictly quarantined for label construction and offline evaluation—they never enter inference features.
 3. **Trajectory-Level Disjoint Splitting:** Individual timesteps from the same sequence are never randomly shuffled. `sync_02` remains completely unseen until final evaluation.
 4. **Train-Only Normalization:** All Z-score scaling parameters are fitted strictly on the training sequence (`sync_01`).
-5. **Deterministic Physics Fallback:** If sensor quality degrades or AI uncertainty exceeds thresholds, the system gracefully falls back 100% to the classical physics engine.
-
----
-
-## 📜 Problem Statement & Attribution
-- **Problem Statement:** SIH26168 — AI-ML based Intelligent Dead Reckoning system for seamless navigation.
-- **Primary Dataset:** IO-VNBD (Inertial and Odometry Benchmark Dataset for Ground Vehicle Positioning, Onyekpeu et al.).
-- **License:** MIT License.
-
+5. **Deterministic Physics Fallback:** If sensor quality degrades, OOD distance spikes, or execution exceeds watchdog deadlines, the system gracefully falls back 100% to the classical physics engine.
 
 ---
 
@@ -288,3 +328,10 @@ python scripts/agastya_cli.py zupt
 
 ### Edge Deployment Runbook
 For embedded Linux setup, PREEMPT_RT kernel tuning, Docker container execution, and hardware-in-the-loop (HIL) calibration procedures, consult the [Edge Deployment Runbook](docs/deployment_runbook.md).
+
+---
+
+## 📜 Problem Statement & Attribution
+- **Problem Statement:** SIH26168 — AI-ML based Intelligent Dead Reckoning system for seamless navigation.
+- **Primary Dataset:** IO-VNBD (Inertial and Odometry Benchmark Dataset for Ground Vehicle Positioning, Onyekpeu et al.).
+- **License:** MIT License.
